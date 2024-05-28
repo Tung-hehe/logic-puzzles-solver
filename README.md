@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ## Run
 
 - Change directory to this folder
-- PuzzleName includes [`StarBattle`, ]
+- PuzzleName includes: `StarBattle`, ...
 - Example for problem-data in `./data/`
 
 ```
