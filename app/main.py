@@ -1,4 +1,6 @@
+import importlib
 import sys
+
 
 from pathlib import Path
 
@@ -14,4 +16,9 @@ class PythonPath():
         sys.path.remove(self.path)
 
 with PythonPath(Path(__file__).absolute().parents[2]):
-    pass
+    puzzleName = sys.argv[1]
+    dataPath = Path(sys.argv[2])
+    puzzle = importlib.import_module(f'src.puzzles')
+    model = getattr(puzzle, puzzleName)(dataPath)
+    model.solve()
+    model.visualize()
