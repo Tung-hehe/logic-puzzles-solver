@@ -1,3 +1,2 @@
 mip
-tqdm
 rich
