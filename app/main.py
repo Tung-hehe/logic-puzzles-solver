@@ -16,9 +16,11 @@ class PythonPath():
         sys.path.remove(self.path)
 
 with PythonPath(Path(__file__).absolute().parents[2]):
+    from src.utils import Loader
     puzzleName = sys.argv[1]
     dataPath = Path(sys.argv[2])
     puzzle = importlib.import_module(f'src.puzzles')
     model = getattr(puzzle, puzzleName)(dataPath)
-    model.solve()
+    with Loader('Solving...', 'Solution:'):
+        model.solve()
     model.visualize()

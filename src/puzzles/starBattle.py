@@ -23,11 +23,12 @@ class StarBattle(Model):
                 for cage in self.data['cages']
             ], start=[]
         ))
-        assert sortedData == [
-            (row, col) for row, col in itertools.product(
-                range(self.data['shape']), range(self.data['shape'])
-            )
-        ]
+        for index, (row, col) in enumerate(itertools.product(
+            range(self.data['shape']), range(self.data['shape'])
+        )):
+            if (row, col) != sortedData[index]:
+                cell = {"row": row, "col": col}
+                raise ValueError(f"Cell {cell} has a problem!")
         return None
 
     def addVariables(self) -> None:
@@ -94,7 +95,8 @@ class StarBattle(Model):
         cages = [[None] * self.data['shape'] for _ in range(self.data['shape'])]
         for index, cage in enumerate(self.data['cages']):
             for cell in cage:
-                assert cages[cell['row']][cell['col']] is None
+                if cages[cell['row']][cell['col']] is not None:
+                    raise ValueError(f'Cell {cell} is duplicated')
                 cages[cell['row']][cell['col']] = index
         for row in range(self.data['shape']):
             renderUpRow = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
