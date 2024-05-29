@@ -171,12 +171,12 @@ class Binox(Model):
                     renderRow += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
                     node = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
                 else:
-                    renderRow += f' '
+                    renderRow += f'{Colors.GRAY}|{Colors.ENDC}'
                     node = f'{Colors.GRAY}+{Colors.ENDC}'
                 if row == 0:
                     renderUpRow += f'{Colors.BOLD}{Colors.PURPLE}---+{Colors.ENDC}'
                 else:
-                    renderUpRow += f'   {node}'
+                    renderUpRow += f'{Colors.GRAY}---{Colors.ENDC}{node}'
             print(renderUpRow)
             print(renderRow)
         print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data["shape"] + 1))}{Colors.ENDC}')
