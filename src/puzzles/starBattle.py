@@ -44,27 +44,27 @@ class StarBattle(Model):
 
     def addContraints(self) -> None:
         super().addContraints()
-        self.addTwoStarsEachRowConstraints()
-        self.addTwoStarsEachColumnConstraints()
-        self.addTwoStarsEachCageConstraints()
+        self.addNStarsEachRowConstraints()
+        self.addNStarsEachColumnConstraints()
+        self.addNStarsEachCageConstraints()
         self.addStarsNotBeAdjacentEachOtherConstraints()
         return None
 
-    def addTwoStarsEachRowConstraints(self) -> None:
+    def addNStarsEachRowConstraints(self) -> None:
         for row in range(self.data['shape']):
             self.addConstraint(
                 mip.xsum(self.xVars[row][col] for col in range(self.data['shape'])) == self.data['nStars']
             )
         return None
 
-    def addTwoStarsEachColumnConstraints(self) -> None:
+    def addNStarsEachColumnConstraints(self) -> None:
         for col in range(self.data['shape']):
             self.addConstraint(
                 mip.xsum(self.xVars[row][col] for row in range(self.data['shape'])) == self.data['nStars']
             )
         return None
 
-    def addTwoStarsEachCageConstraints(self) -> None:
+    def addNStarsEachCageConstraints(self) -> None:
         for cage in self.data['cages']:
             self.addConstraint(
                 mip.xsum(self.xVars[cell['row']][cell['col']] for cell in cage) == self.data['nStars']

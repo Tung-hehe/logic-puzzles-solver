@@ -1,0 +1,29 @@
+{
+    "shape": 10,
+    "nSymbols": 2,
+    "fixed": [
+        {"row": 0, "col": 6, "val": "X"},
+        {"row": 1, "col": 7, "val": "O"},
+        {"row": 1, "col": 9, "val": "O"},
+        {"row": 2, "col": 2, "val": "X"},
+        {"row": 2, "col": 3, "val": "X"},
+        {"row": 2, "col": 6, "val": "O"},
+        {"row": 3, "col": 0, "val": "O"},
+        {"row": 3, "col": 1, "val": "O"},
+        {"row": 4, "col": 3, "val": "X"},
+        {"row": 4, "col": 6, "val": "O"},
+        {"row": 4, "col": 9, "val": "X"},
+        {"row": 5, "col": 2, "val": "X"},
+        {"row": 5, "col": 3, "val": "X"},
+        {"row": 5, "col": 7, "val": "X"},
+        {"row": 6, "col": 2, "val": "X"},
+        {"row": 6, "col": 6, "val": "X"},
+        {"row": 7, "col": 7, "val": "O"},
+        {"row": 7, "col": 9, "val": "X"},
+        {"row": 8, "col": 1, "val": "O"},
+        {"row": 8, "col": 2, "val": "O"},
+        {"row": 8, "col": 5, "val": "O"},
+        {"row": 8, "col": 7, "val": "O"},
+        {"row": 9, "col": 8, "val": "X"}
+    ]
+}

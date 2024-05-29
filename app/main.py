@@ -22,5 +22,6 @@ with PythonPath(Path(__file__).absolute().parents[2]):
     model = getattr(puzzle, puzzleName)(dataPath)
     console = Console()
     with console.status("[bold green] Solving...") as status:
+        model.initModel()
         model.solve()
     model.visualize()

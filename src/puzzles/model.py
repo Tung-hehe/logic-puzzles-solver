@@ -1,25 +1,21 @@
-import itertools
-import threading
-import time
-import sys
-
+from datetime import datetime
 from pathlib import Path
 
 import mip
 
-from src.utils import PuzzleName, DataIO
+from src.utils import PuzzleName, DataIO, Colors
 
 
 class Model:
 
     def __init__(self, dataPath: Path, puzzleName: PuzzleName) -> None:
+        self.startTime = datetime.now()
         self.data = DataIO.readJsonData(dataPath)
         # Init model
         self._model = mip.Model(name=puzzleName.value, solver_name='CBC')
         # Set MIPFocus = 1
         self._model.solver.set_emphasis(mip.SearchEmphasis.FEASIBILITY)
         self._model.verbose = 0
-        self.initModel()
         return None
 
     def initModel(self) -> None:
@@ -46,8 +42,10 @@ class Model:
 
     def solve(self) -> None:
         self._model.optimize()
+        self.solvingTime = (datetime.now() - self.startTime).total_seconds()
         return None
 
     def visualize(self) -> None:
         assert self._model.status == mip.OptimizationStatus.OPTIMAL
+        print(f'{Colors.BOLD}{Colors.GREEN}Done! Solving time: {self.solvingTime}s{Colors.ENDC}')
         return None

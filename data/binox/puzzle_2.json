@@ -1,0 +1,20 @@
+{
+    "shape": 8,
+    "nSymbols": 2,
+    "fixed": [
+        {"row": 0, "col": 1, "val": "O"},
+        {"row": 0, "col": 7, "val": "X"},
+        {"row": 1, "col": 1, "val": "O"},
+        {"row": 1, "col": 6, "val": "O"},
+        {"row": 2, "col": 7, "val": "X"},
+        {"row": 3, "col": 0, "val": "O"},
+        {"row": 4, "col": 3, "val": "O"},
+        {"row": 4, "col": 4, "val": "O"},
+        {"row": 4, "col": 6, "val": "X"},
+        {"row": 5, "col": 1, "val": "X"},
+        {"row": 5, "col": 5, "val": "X"},
+        {"row": 5, "col": 6, "val": "X"},
+        {"row": 6, "col": 0, "val": "O"},
+        {"row": 6, "col": 2, "val": "O"}
+    ]
+}
