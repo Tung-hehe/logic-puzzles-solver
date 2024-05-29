@@ -42,7 +42,7 @@ class Model:
 
     def solve(self) -> None:
         self._model.optimize()
-        self.solvingTime = (datetime.now() - self.startTime).total_seconds()
+        self.solvingTime = round((datetime.now() - self.startTime).total_seconds(), 2)
         return None
 
     def visualize(self) -> None:
