@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ## Run
 
 - Change directory to this folder
-- PuzzleName includes: `StarBattle`, ...
+- PuzzleName includes: `StarBattle`, `Binox`, `Galaxies`
 - Example for problem-data in `./data/`
 
 ```
@@ -71,7 +71,7 @@ Data structure:
         "shape": [6, 6], // size of puzzle [number of rows, number of columns]
         "nSymbols": 2, // max number of the same symbol touching in each row, col
         "fixed": [ // fixed cells
-            {"row": 0, "col": 0, "val": "X"}, // a fixed cells
+            {"row": 0, "col": 0, "val": "X"}, // a fixed cell
             {"row": 1, "col": 2, "val": "O"},
             {"row": 2, "col": 1, "val": "O"},
             {"row": 2, "col": 2, "val": "O"},
@@ -132,5 +132,6 @@ Example data:
 1. [./data/galaxies/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_1.json): `#16` in [ 7x7 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d7_b1.pdf)
 2. [./data/galaxies/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_2.json): `#10` in [ 10x10 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d10_b1.pdf)
 3. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_3.json): `#5` in [ 21x11 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d11_b1.pdf)
+4. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_4.json): `#2` in [ 21x21 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d21_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/galaxies/)
