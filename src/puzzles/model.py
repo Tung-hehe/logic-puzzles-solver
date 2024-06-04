@@ -20,7 +20,7 @@ class Model:
 
     def initModel(self) -> None:
         self.addVariables()
-        self.addContraints()
+        self.addConstraints()
         self.setObjective()
         return None
 
@@ -33,7 +33,7 @@ class Model:
     def addConstraint(self, constraint: mip.LinExpr, name: str = '') -> mip.Constr:
         return self._model.add_constr(constraint, name=name)
 
-    def addContraints(self) -> None:
+    def addConstraints(self) -> None:
         return None
 
     def setObjective(self) -> None:
@@ -46,6 +46,7 @@ class Model:
         return None
 
     def visualize(self) -> None:
-        assert self._model.status == mip.OptimizationStatus.OPTIMAL
+        if self._model.status != mip.OptimizationStatus.OPTIMAL:
+            raise ValueError("Your puzzle is infeasible. Please check the data! Maybe you typed it wrong")
         print(f'{Colors.BOLD}{Colors.GREEN}Done! Solving time: {self.solvingTime}s{Colors.ENDC}')
         return None

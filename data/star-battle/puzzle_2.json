@@ -1,5 +1,5 @@
 {
-    "shape": 10,
+    "shape": [10, 10],
     "nStars": 2,
     "cages": [
         [

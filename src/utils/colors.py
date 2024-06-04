@@ -9,3 +9,14 @@ class Colors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
+class Backgrounds:
+    BLACK = '\033[40m'
+    RED = '\033[41m'
+    GREEN = '\033[42m'
+    ORANGE = '\033[43m'
+    BLUE = '\033[44m'
+    PURPLE = '\033[45m'
+    CYAN = '\033[46m'
+    GRAY = '\033[47m'

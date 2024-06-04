@@ -1,5 +1,5 @@
 {
-    "shape": 8,
+    "shape": [8, 8],
     "nStars": 1,
     "cages": [
         [

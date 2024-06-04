@@ -5,5 +5,8 @@ from enum import (
 
 @unique
 class PuzzleName(Enum):
-    StarBattle = 'StarBattle'
     Binox = 'Binox'
+    Galaxies = 'Galaxies'
+    Troix = 'Troix'
+    StarBattle = 'StarBattle'
+    Sudoku = 'Sudoku'

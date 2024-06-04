@@ -1,5 +1,5 @@
 {
-    "shape": 10,
+    "shape": [10, 10],
     "nSymbols": 2,
     "fixed": [
         {"row": 0, "col": 6, "val": "X"},

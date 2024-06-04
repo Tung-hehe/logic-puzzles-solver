@@ -6,7 +6,7 @@ import mip
 
 from .model import Model
 
-from src.utils import PuzzleName, Colors
+from src.utils import Colors, PuzzleName
 
 
 class StarBattle(Model):
@@ -24,7 +24,7 @@ class StarBattle(Model):
             ], start=[]
         ))
         for index, (row, col) in enumerate(itertools.product(
-            range(self.data['shape']), range(self.data['shape'])
+            range(self.data['shape'][0]), range(self.data['shape'][1])
         )):
             if (row, col) != sortedData[index]:
                 cell = {"row": row, "col": col}
@@ -36,13 +36,13 @@ class StarBattle(Model):
         self.xVars = [
             [
                 self.addVariable(vtype=mip.BINARY, name=f'x_{row}_{col}')
-                for row in range(self.data['shape'])
+                for col in range(self.data['shape'][1])
             ]
-            for col in range(self.data['shape'])
+            for row in range(self.data['shape'][0])
         ]
         return None
 
-    def addContraints(self) -> None:
+    def addConstraints(self) -> None:
         super().addContraints()
         self.addNStarsEachRowConstraints()
         self.addNStarsEachColumnConstraints()
@@ -51,16 +51,16 @@ class StarBattle(Model):
         return None
 
     def addNStarsEachRowConstraints(self) -> None:
-        for row in range(self.data['shape']):
+        for row in range(self.data['shape'][0]):
             self.addConstraint(
-                mip.xsum(self.xVars[row][col] for col in range(self.data['shape'])) == self.data['nStars']
+                mip.xsum(self.xVars[row][col] for col in range(self.data['shape'][1])) == self.data['nStars']
             )
         return None
 
     def addNStarsEachColumnConstraints(self) -> None:
-        for col in range(self.data['shape']):
+        for col in range(self.data['shape'][1]):
             self.addConstraint(
-                mip.xsum(self.xVars[row][col] for row in range(self.data['shape'])) == self.data['nStars']
+                mip.xsum(self.xVars[row][col] for row in range(self.data['shape'][0])) == self.data['nStars']
             )
         return None
 
@@ -74,12 +74,12 @@ class StarBattle(Model):
     def addStarsNotBeAdjacentEachOtherConstraints(self) -> None:
         # The stars may not be adjacent to each other (not even diagonally).
         blocks = {}
-        for row, col in itertools.product(range(self.data['shape']), range(self.data['shape'])):
+        for row, col in itertools.product(range(self.data['shape'][0]), range(self.data['shape'][1])):
             blocks[(row, col)] = []
             for gapRow, gapCol in itertools.product([-1, 0, 1], [-1, 0, 1]):
                 if gapRow == 0 and gapCol == 0:
                     continue
-                if 0 <= row + gapRow < self.data['shape'] and 0 <= col + gapCol < self.data['shape']:
+                if 0 <= row + gapRow < self.data['shape'][0] and 0 <= col + gapCol < self.data['shape'][1]:
                     blocks[(row, col)].append((row + gapRow, col + gapCol))
         for cell, neighbors in blocks.items():
             nNeighborCells = len(neighbors)
@@ -92,21 +92,21 @@ class StarBattle(Model):
 
     def visualize(self) -> None:
         super().visualize()
-        cages = [[None] * self.data['shape'] for _ in range(self.data['shape'])]
+        cages = [[None] * self.data['shape'][1] for _ in range(self.data['shape'][0])]
         for index, cage in enumerate(self.data['cages']):
             for cell in cage:
                 if cages[cell['row']][cell['col']] is not None:
                     raise ValueError(f'Cell {cell} is duplicated')
                 cages[cell['row']][cell['col']] = index
-        for row in range(self.data['shape']):
+        for row in range(self.data['shape'][0]):
             renderUpRow = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
             renderRow = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
-            for col in range(self.data['shape']):
+            for col in range(self.data['shape'][1]):
                 if self.xVars[row][col].x == 1:
                     renderRow += f' {Colors.BOLD}{Colors.GREEN}⚝{Colors.ENDC} '
                 else:
-                    renderRow += f'   '
-                if col == self.data['shape'] - 1 or cages[row][col] != cages[row][col + 1]:
+                    renderRow += f'{Colors.GREEN}   {Colors.ENDC}'
+                if col == self.data['shape'][1] - 1 or cages[row][col] != cages[row][col + 1]:
                     renderRow += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
                     crossNode = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
                 else:
@@ -123,5 +123,5 @@ class StarBattle(Model):
                     renderUpRow += f'   {crossNode}'
             print(renderUpRow)
             print(renderRow)
-        print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data["shape"] + 1))}{Colors.ENDC}')
+        print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data["shape"][1] + 1))}{Colors.ENDC}')
         return None
