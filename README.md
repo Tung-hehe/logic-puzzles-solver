@@ -11,7 +11,7 @@ pip install -r requirements.txt
     ```
     python .\app\main.py -p [P] -d [D]
     ```
-- `[P]` is a puzzle name, includes: `StarBattle`, `Binox`, `Galaxies`
+- `[P]` is a puzzle name, includes: `Binox`, `Galaxies`, `StarBattle`, `Troix`
 - `[D]` is path to problem data
 - Example running
     ```
@@ -59,9 +59,9 @@ Data structure:
 ```
 
 Example data:
-1. [./data/star-battle/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_1.json): `#1` in [Star Battle 8x8, volume 1, book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_8x8_v1_b1.pdf)
-2. [./data/star-battle/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_2.json): `#1` in [Star Battle 10x10, volume 1, book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_10x10_v1_b1.pdf)
-3. [./data/star-battle/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_3.json): `#1` in [Star Battle 14x14, volume 1, book 1](https://files.krazydad.com/starbattle/sfiles/STAR_14x14_v1_b1.pdf)
+1. [./data/star-battle/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_1.json): `#1` in [Star Battle 8x8, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_8x8_v1_b1.pdf)
+2. [./data/star-battle/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_2.json): `#1` in [Star Battle 10x10, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_10x10_v1_b1.pdf)
+3. [./data/star-battle/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_3.json): `#1` in [Star Battle 14x14, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_14x14_v1_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/starbattle/)
 
@@ -91,11 +91,11 @@ Data structure:
 ```
 
 Example data:
-1. [./data/binox/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_1.json): `#1` in [Toughest 6x6 Binox, volume 1, book 1](https://files.krazydad.com/binox/sfiles/BINOX_6x6_TF_v1_4pp_b1.pdf)
-2. [./data/binox/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_2.json): `#1` in [Toughest 8x8 Binox, volume 1, book 1](https://files.krazydad.com/binox/sfiles/BINOX_8x8_TF_v1_4pp_b1.pdf)
-3. [./data/binox/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_3.json): `#1` in [Toughest 10x10 Binox, volume 1, book 1](https://files.krazydad.com/binox/sfiles/BINOX_10x10_TF_v1_4pp_b1.pdf)
-4. [./data/binox/puzzle_4.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_4.json): `#1` in [Toughest 12x12 Binox, volume 1, book 1](https://files.krazydad.com/binox/sfiles/BINOX_12x12_TF_v1_2pp_b1.pdf)
-5. [./data/binox/puzzle_5.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_5.json): `#1` in [Toughest 14x14 Binox, volume 1, book 1](https://files.krazydad.com/binox/sfiles/BINOX_14x14_TF_v1_2pp_b1.pdf)
+1. [./data/binox/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_1.json): `#1` in [Toughest 6x6 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_6x6_TF_v1_4pp_b1.pdf)
+2. [./data/binox/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_2.json): `#1` in [Toughest 8x8 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_8x8_TF_v1_4pp_b1.pdf)
+3. [./data/binox/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_3.json): `#1` in [Toughest 10x10 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_10x10_TF_v1_4pp_b1.pdf)
+4. [./data/binox/puzzle_4.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_4.json): `#1` in [Toughest 12x12 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_12x12_TF_v1_2pp_b1.pdf)
+5. [./data/binox/puzzle_5.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_5.json): `#1` in [Toughest 14x14 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_14x14_TF_v1_2pp_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/binox/)
 
@@ -104,6 +104,23 @@ Rules:
 1. The puzzle is filled with Xs, Os, and Is.
 2. Horizontally and vertically, there can be no more than 2 of the same symbol touching (no three-in-a-row).
 3. There is an equal number of each symbol in each row and column.
+
+Data structure:
+```json
+    {
+        "shape": [9, 9], // size of puzzle [number of rows, number of columns]
+        "nSymbols": 2, // max number of the same symbol touching in each row, col
+        "fixed": [ // fixed cells
+            {"row": 0, "col": 0, "val": "X"}, // a fixed cell
+            {"row": 3, "col": 0, "val": "I"},
+            {"row": 3, "col": 1, "val": "O"},
+            {"row": 3, "col": 3, "val": "X"},
+        ]
+    }
+```
+
+Example data:
+1. [./data/troix/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_1.json): `#1` in [9x9 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_9x9_regular_v1_4pp_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/troix/)
 
@@ -136,9 +153,9 @@ Data structure:
 ```
 
 Example data:
-1. [./data/galaxies/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_1.json): `#16` in [ 7x7 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d7_b1.pdf)
-2. [./data/galaxies/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_2.json): `#10` in [ 10x10 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d10_b1.pdf)
-3. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_3.json): `#5` in [ 21x11 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d11_b1.pdf)
-4. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_4.json): `#2` in [ 21x21 Galaxy, book 1](https://files.krazydad.com/galaxies/books/GAL_d21_b1.pdf)
+1. [./data/galaxies/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_1.json): `#16` in [ 7x7 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d7_b1.pdf)
+2. [./data/galaxies/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_2.json): `#10` in [ 10x10 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d10_b1.pdf)
+3. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_3.json): `#5` in [ 21x11 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d11_b1.pdf)
+4. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_4.json): `#2` in [ 21x21 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d21_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/galaxies/)

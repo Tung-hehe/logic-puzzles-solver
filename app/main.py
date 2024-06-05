@@ -22,7 +22,7 @@ def main():
         epilog='example: python .\\app\main.py -p StarBattle -d ./data/star-battle/puzzle_1.json',
         usage='python .\\app\main.py -p [P] -d [D]'
     )
-    parser.add_argument('-p', type=str, nargs='?', help='puzzle name, include: StarBattle, Binox, Galaxies')
+    parser.add_argument('-p', type=str, nargs='?', help='puzzle name, include: Binox, Galaxies, StarBattle, Troix')
     parser.add_argument('-d', type=str, nargs='?', help='path to data of problem')
     opt = parser.parse_args()
     with PythonPath(Path(__file__).absolute().parents[2]):
