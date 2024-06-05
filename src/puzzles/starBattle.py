@@ -43,7 +43,7 @@ class StarBattle(Model):
         return None
 
     def addConstraints(self) -> None:
-        super().addContraints()
+        super().addConstraints()
         self.addNStarsEachRowConstraints()
         self.addNStarsEachColumnConstraints()
         self.addNStarsEachCageConstraints()

@@ -53,7 +53,7 @@ class Binox(Model):
         return None
 
     def addConstraints(self) -> None:
-        super().addContraints()
+        super().addConstraints()
         self.addFixedCellConstraints()
         self.addNoMoreThanNSameSymbolTouchingInRowConstraints()
         self.addNoMoreThanNSameSymbolTouchingInColConstraints()
