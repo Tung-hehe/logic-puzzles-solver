@@ -7,14 +7,21 @@ pip install -r requirements.txt
 ```
 
 ## Run
-
-- Change directory to this folder
-- PuzzleName includes: `StarBattle`, `Binox`, `Galaxies`
-- Example for problem-data in `./data/`
-
-```
-python .\app\main.py [PuzzleName] [path/to/problem-data]
-```
+- Change directory to this folder and run
+    ```
+    python .\app\main.py -p [P] -d [D]
+    ```
+- `[P]` is a puzzle name, includes: `StarBattle`, `Binox`, `Galaxies`
+- `[D]` is path to problem data
+- Example running
+    ```
+    python .\app\main.py -p StarBattle -d ./data/star-battle/puzzle_1.json
+    ```
+- Help `-h` for more details:
+    ```
+    python .\app\main.py -h
+    ```
+- Example data in `./data/`
 
 **Note**: *If you want to solve a new puzzle, you need to model this puzzle follow belowed data structure.*
 
