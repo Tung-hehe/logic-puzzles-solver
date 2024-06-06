@@ -7,13 +7,13 @@ import networkx as nx
 
 from .model import Model
 
-from src.utils import PuzzleName, Colors
+from src.utils import Colors
 
 
 class Galaxies(Model):
 
     def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath, PuzzleName.Binox)
+        super().__init__(dataPath)
         self.nGalaxies = len(self.data['galaxies'])
         self.verifyData()
         return None
@@ -167,28 +167,34 @@ class Galaxies(Model):
                     )
         return None
 
+    def createCandidateCellsGraph(self, candidateCells: list[tuple], centerCells: list[dict]) -> nx.Graph:
+        graph = nx.Graph()
+        graph.add_node('center')
+        for cell in candidateCells:
+            graph.add_node(cell)
+        for cell in candidateCells:
+            if (cell[0] + 1, cell[1]) in candidateCells:
+                graph.add_edge(cell, (cell[0] + 1, cell[1]))
+            if (cell[0], cell[1] + 1) in candidateCells:
+                graph.add_edge(cell, (cell[0], cell[1] + 1))
+        for centerCell in centerCells:
+            for cell in [
+                (centerCell['row'] - 1, centerCell['col']),
+                (centerCell['row'], centerCell['col'] - 1),
+                (centerCell['row'] + 1, centerCell['col']),
+                (centerCell['row'], centerCell['col'] + 1)
+            ]:
+                if cell in candidateCells:
+                    graph.add_edge(cell, 'center')
+        return graph
+
     def addGalaxyShapeConectedConstraints(self) -> None:
         for galaxy in range(self.nGalaxies):
             if len(self.candidateCellsOfGalaxies[galaxy]) == 0:
                 continue
-            graph = nx.Graph()
-            graph.add_node('center')
-            for cell in self.candidateCellsOfGalaxies[galaxy]:
-                graph.add_node(cell)
-            for cell in self.candidateCellsOfGalaxies[galaxy]:
-                if (cell[0] + 1, cell[1]) in self.candidateCellsOfGalaxies[galaxy]:
-                    graph.add_edge(cell, (cell[0] + 1, cell[1]))
-                if (cell[0], cell[1] + 1) in self.candidateCellsOfGalaxies[galaxy]:
-                    graph.add_edge(cell, (cell[0], cell[1] + 1))
-            for centerCell in self.data['galaxies'][galaxy]:
-                for cell in [
-                    (centerCell['row'] - 1, centerCell['col']),
-                    (centerCell['row'], centerCell['col'] - 1),
-                    (centerCell['row'] + 1, centerCell['col']),
-                    (centerCell['row'], centerCell['col'] + 1)
-                ]:
-                    if cell in self.candidateCellsOfGalaxies[galaxy]:
-                        graph.add_edge(cell, 'center')
+            graph = self.createCandidateCellsGraph(
+                self.candidateCellsOfGalaxies[galaxy], self.data['galaxies'][galaxy]
+            )
             for cell in self.candidateCellsOfGalaxies[galaxy]:
                 if cell[0] <= self.data['galaxies'][galaxy][0]['row']:
                     paths = self.findAllPathsFromCellToCenter(graph, cell)

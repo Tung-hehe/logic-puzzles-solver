@@ -6,13 +6,13 @@ import mip
 
 from .model import Model
 
-from src.utils import Colors, PuzzleName
+from src.utils import Colors
 
 
 class StarBattle(Model):
 
     def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath, PuzzleName.StarBattle)
+        super().__init__(dataPath)
         self.verifyData()
         return None
 
@@ -105,7 +105,7 @@ class StarBattle(Model):
                 if self.xVars[row][col].x == 1:
                     renderRow += f' {Colors.BOLD}{Colors.GREEN}⚝{Colors.ENDC} '
                 else:
-                    renderRow += f'{Colors.GREEN}   {Colors.ENDC}'
+                    renderRow += f'   '
                 if col == self.data['shape'][1] - 1 or cages[row][col] != cages[row][col + 1]:
                     renderRow += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
                     crossNode = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'

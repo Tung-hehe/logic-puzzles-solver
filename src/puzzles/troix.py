@@ -6,13 +6,13 @@ import mip
 
 from .model import Model
 
-from src.utils import PuzzleName, Colors
+from src.utils import Colors
 
 
 class Troix(Model):
 
     def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath, PuzzleName.Binox)
+        super().__init__(dataPath)
         return None
 
     def verifyData(self) -> None:

@@ -3,16 +3,16 @@ from pathlib import Path
 
 import mip
 
-from src.utils import PuzzleName, DataIO, Colors
+from src.utils import DataIO, Colors
 
 
 class Model:
 
-    def __init__(self, dataPath: Path, puzzleName: PuzzleName) -> None:
+    def __init__(self, dataPath: Path) -> None:
         self.startTime = datetime.now()
         self.data = DataIO.readJsonData(dataPath)
         # Init model
-        self._model = mip.Model(name=puzzleName.value, solver_name='CBC')
+        self._model = mip.Model(solver_name='CBC')
         # Set MIPFocus = 1
         self._model.solver.set_emphasis(mip.SearchEmphasis.FEASIBILITY)
         self._model.verbose = 0

@@ -121,6 +121,9 @@ Data structure:
 
 Example data:
 1. [./data/troix/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_1.json): `#1` in [9x9 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_9x9_regular_v1_4pp_b1.pdf)
+2. [./data/troix/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_2.json): `#1` in [12x12 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_12x12_regular_v1_2pp_b1.pdf)
+3. [./data/troix/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_3.json): `#1` in [15x15 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_15x15_regular_v1_2pp_b1.pdf)
+4. [./data/troix/puzzle_4.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_3.json): `#1` in [21x21 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_21x21_regular_v1_1pp_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/troix/)
 
@@ -159,3 +162,13 @@ Example data:
 4. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_4.json): `#2` in [ 21x21 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d21_b1.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/galaxies/)
+
+
+## Slitherlink
+Rules:
+1. Connect horizontally or vertically adjacent dots to form a
+meandering path that forms a single loop, without crossing itself, or branching.
+2. The numbers indicate how many lines surround each cell. Empty cells may be surrounded by
+any number of lines (from 0 to 3).
+
+Detail and puzzles: [Krazydad](https://krazydad.com/slitherlink/)

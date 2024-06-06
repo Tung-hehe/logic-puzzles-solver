@@ -6,13 +6,13 @@ import mip
 
 from .model import Model
 
-from src.utils import Colors, PuzzleName
+from src.utils import Colors
 
 
 class Binox(Model):
 
     def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath, PuzzleName.Binox)
+        super().__init__(dataPath)
         self.verifyData()
         return None
 
