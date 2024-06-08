@@ -40,13 +40,20 @@ class Model:
         self._model.objective = mip.minimize(mip.LinExpr())
         return None
 
-    def solve(self) -> None:
-        self._model.optimize()
+    def raiseErrorInfeasible(self) -> None:
+        raise ValueError("Your puzzle is infeasible. Please check the data! Maybe you typed it wrong")
+
+    def calculateSolvingTime(self) -> None:
         self.solvingTime = round((datetime.now() - self.startTime).total_seconds(), 2)
         return None
 
-    def visualize(self) -> None:
+    def solve(self) -> None:
+        self._model.optimize()
         if self._model.status != mip.OptimizationStatus.OPTIMAL:
-            raise ValueError("Your puzzle is infeasible. Please check the data! Maybe you typed it wrong")
+            self.raiseErrorInfeasible()
+        self.calculateSolvingTime()
+        return None
+
+    def visualize(self) -> None:
         print(f'{Colors.BOLD}{Colors.GREEN}Done! Solving time: {self.solvingTime}s{Colors.ENDC}')
         return None

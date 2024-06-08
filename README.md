@@ -166,9 +166,23 @@ Detail and puzzles: [Krazydad](https://krazydad.com/galaxies/)
 
 ## Slitherlink
 Rules:
-1. Connect horizontally or vertically adjacent dots to form a
-meandering path that forms a single loop, without crossing itself, or branching.
-2. The numbers indicate how many lines surround each cell. Empty cells may be surrounded by
-any number of lines (from 0 to 3).
+1. Connect horizontally or vertically adjacent dots to form a meandering path that forms a single loop, without crossing itself, or branching.
+2. The numbers indicate how many lines surround each cell. Empty cells may be surrounded by any number of lines (from 0 to 3).
+
+Data structure:
+```json
+    {
+        "shape": [7, 7], // size of puzzle [number of rows, number of columns]
+        "nLinesSurround": [ // number of lines surround cells
+            {"row": 0, "col": 0, "val": 2},
+            {"row": 0, "col": 1, "val": 2},
+        ]
+    }
+```
+
+Example data:
+1. [./data/slitherlink/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/slitherlink/puzzle_1.json): `#1` in [ Tough Slitherlink Puzzles, 7 x 7 Format, Volume 1, Book 1](https://files.krazydad.com/slitherlink/sfiles/sl_d2_07x07_b001.pdf)
+2. [./data/slitherlink/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/slitherlink/puzzle_2.json): `#1` in [ Tough Slitherlink Puzzles, 10 x 10 Format, Volume 1, Book 1](https://files.krazydad.com/slitherlink/sfiles/sl_d2_10x10_b001.pdf)
+3. [./data/slitherlink/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/slitherlink/puzzle_3.json): `#1` in [ Tough Slitherlink Puzzles, 20 x 20 Format, Volume 1, Book 1](https://files.krazydad.com/slitherlink/sfiles/sl_d2_20x20_b001.pdf)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/slitherlink/)
