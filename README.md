@@ -11,7 +11,7 @@ pip install -r requirements.txt
     ```
     python .\app\main.py -p [P] -d [D]
     ```
-- `[P]` is a puzzle name, includes: `Binox`, `Galaxies`, `StarBattle`, `Troix`
+- `[P]` is a puzzle name, includes: `Binox`, `Galaxies`, `StarBattle`, `Troix`, `Slitherlink`
 - `[D]` is path to problem data
 - Example running
     ```
@@ -27,8 +27,8 @@ pip install -r requirements.txt
 
 ## Star Battle
 Rules:
-1. Each puzzle is divided into s different regions.
-2. Each cage, row and column contains n (base on s) star.
+1. Each puzzle is divided into $s$ different regions.
+2. Each cage, row and column contains $n$ (base on $s$) star.
 3. The stars may not be adjacent to each other (not even diagonally).
 
 Data structure:
@@ -63,6 +63,8 @@ Example data:
 2. [./data/star-battle/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_2.json): `#1` in [Star Battle 10x10, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_10x10_v1_b1.pdf)
 3. [./data/star-battle/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_3.json): `#1` in [Star Battle 14x14, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_14x14_v1_b1.pdf)
 
+Modeling: [./docs/starBattle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/starBattle.md)
+
 Detail and puzzles: [Krazydad](https://krazydad.com/starbattle/)
 
 ## Binox
@@ -96,6 +98,8 @@ Example data:
 3. [./data/binox/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_3.json): `#1` in [Toughest 10x10 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_10x10_TF_v1_4pp_b1.pdf)
 4. [./data/binox/puzzle_4.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_4.json): `#1` in [Toughest 12x12 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_12x12_TF_v1_2pp_b1.pdf)
 5. [./data/binox/puzzle_5.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/binox/puzzle_5.json): `#1` in [Toughest 14x14 Binox, Volume 1, Book 1](https://files.krazydad.com/binox/sfiles/BINOX_14x14_TF_v1_2pp_b1.pdf)
+
+Modeling: [./docs/binox.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/binox.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/binox/)
 
