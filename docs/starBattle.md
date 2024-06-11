@@ -25,13 +25,13 @@ $x(i, j) = \begin{cases}
 
 ## 4. Constraints
 ### 4.1. Each row contains $n$ stars
-$\sum_{j = 0}^{n_C - 1}{x(i, j)} = n, \forall 0 \leq i \le n_R$
+$$\sum_{j = 0}^{n_C - 1}{x(i, j)} = n, \forall 0 \leq i \le n_R$$
 
 ### 4.2. Each column contains $n$ stars
-$\sum_{i = 0}^{n_R - 1}{x(i, j)} = n, \forall 0 \leq j \le n_C$
+$$\sum_{i = 0}^{n_R - 1}{x(i, j)} = n, \forall 0 \leq j \le n_C$$
 
 ### 4.3. Each cage contains $n$ stars
-$\sum_{\forall (i, j) \in C_s}{x(i, j)} = n, \forall s \in S$
+$$\sum_{\forall (i, j) \in C_s}{x(i, j)} = n, \forall s \in S$$
 
 ### 4.4 The stars may not be adjacent to each other (not even diagonally).
-$f(i, j) x(i, j) + \sum_{\forall (p, q) \in N(i, j)}{x(p, q)} \leq f(i, j), \forall 0 \leq i \le n_R, 0 \leq j \le n_C$
+$$f(i, j) x(i, j) + \sum_{\forall (p, q) \in N(i, j)}{x(p, q)} \leq f(i, j), \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
