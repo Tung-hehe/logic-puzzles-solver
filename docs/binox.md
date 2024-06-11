@@ -16,20 +16,20 @@
 
 ## 3. Variables
 
-$x(i, j) = \begin{cases}
+$$x(i, j) = \begin{cases}
     1 & \text{if cell } (i, j) \text{ place X } \\
     0 & \text{if cell } (i, j) \text{ place O }
-\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$
+\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
 
-$y(i, j, k) = \begin{cases}
+$$y(i, j, k) = \begin{cases}
     1 & \text{if } x(i, k) = x(j, k) \\
     0 & \text{otherwise}
-\end{cases}, \forall 0 \leq i, j \le n_R, i\ne j, 0 \leq k \le n_C$
+\end{cases}, \forall 0 \leq i, j \le n_R, i\ne j, 0 \leq k \le n_C$$
 
-$z(i, j, k) = \begin{cases}
+$$z(i, j, k) = \begin{cases}
     1 & \text{if } x(k, i) = x(k, j) \\
     0 & \text{otherwise}
-\end{cases}, \forall 0 \leq i, j \le n_C, i\ne j, 0 \leq k \le n_R$
+\end{cases}, \forall 0 \leq i, j \le n_C, i\ne j, 0 \leq k \le n_R$$
 
 ## 4. Constraints
 ### 4.1. There should never be a continuous run of the same symbol longer than 2 in each row.
