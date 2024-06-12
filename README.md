@@ -138,6 +138,8 @@ Example data:
 3. [./data/troix/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_3.json): `#1` in [15x15 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_15x15_regular_v1_2pp_b1.pdf)
 4. [./data/troix/puzzle_4.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/troix/puzzle_3.json): `#1` in [21x21 TroixPuzzles, Volume 1, Book 1](https://files.krazydad.com/troix/sfiles/TROIX_21x21_regular_v1_1pp_b1.pdf)
 
+Modeling: [./docs/starBattle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/troix.md)
+
 Detail and puzzles: [Krazydad](https://krazydad.com/troix/)
 
 ## Galaxies
@@ -174,8 +176,9 @@ Example data:
 3. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_3.json): `#5` in [ 21x11 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d11_b1.pdf)
 4. [./data/galaxies/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/galaxies/puzzle_4.json): `#2` in [ 21x21 Galaxy, Book 1](https://files.krazydad.com/galaxies/books/GAL_d21_b1.pdf)
 
-Detail and puzzles: [Krazydad](https://krazydad.com/galaxies/)
+Modeling: [./docs/starBattle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/galaxies.md)
 
+Detail and puzzles: [Krazydad](https://krazydad.com/galaxies/)
 
 ## Slitherlink
 Rules:
@@ -197,5 +200,7 @@ Example data:
 1. [./data/slitherlink/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/slitherlink/puzzle_1.json): `#1` in [ Tough Slitherlink Puzzles, 7 x 7 Format, Volume 1, Book 1](https://files.krazydad.com/slitherlink/sfiles/sl_d2_07x07_b001.pdf)
 2. [./data/slitherlink/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/slitherlink/puzzle_2.json): `#1` in [ Tough Slitherlink Puzzles, 10 x 10 Format, Volume 1, Book 1](https://files.krazydad.com/slitherlink/sfiles/sl_d2_10x10_b001.pdf)
 3. [./data/slitherlink/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/slitherlink/puzzle_3.json): `#1` in [ Tough Slitherlink Puzzles, 20 x 20 Format, Volume 1, Book 1](https://files.krazydad.com/slitherlink/sfiles/sl_d2_20x20_b001.pdf)
+
+Modeling: [./docs/starBattle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/slitherlink.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/slitherlink/)
