@@ -18,7 +18,7 @@
 ## 3. Variables
 
 $$x(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ has a star } \\
+    1 & \text{if cell } (i, j) \text{ containts a star } \\
     0 & \text{otherwise}
 \end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
 
