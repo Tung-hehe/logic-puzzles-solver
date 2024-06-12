@@ -14,7 +14,7 @@ pip install -r requirements.txt
 - `[P]` is a puzzle sorted name
 
     | Sorted name | Puzzle name    |
-    | :---------: | :-------------:|
+    | :---------: | :------------- |
     |     `B`     | Binox          |
     |     `G`     | Galaxies       |
     |     `SB`    | StarBattle     |
