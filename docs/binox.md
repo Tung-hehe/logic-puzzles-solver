@@ -17,8 +17,8 @@
 ## 3. Variables
 
 $$x(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ place X } \\
-    0 & \text{if cell } (i, j) \text{ place O }
+    1 & \text{if cell } (i, j) \text{ containts X } \\
+    0 & \text{if cell } (i, j) \text{ containts O }
 \end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
 
 $$y(i, j, k) = \begin{cases}
