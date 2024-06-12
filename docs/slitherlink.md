@@ -1,4 +1,4 @@
-# Galaxies Model
+# Slitherlink Model
 ## 1. Rules
 - Connect horizontally or vertically adjacent dots to form a meandering path that forms a single loop, without crossing itself, or branching.
 - The numbers indicate how many lines surround each cell.
