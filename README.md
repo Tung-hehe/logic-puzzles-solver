@@ -11,11 +11,20 @@ pip install -r requirements.txt
     ```
     python .\app\main.py -p [P] -d [D]
     ```
-- `[P]` is a puzzle name, includes: `Binox`, `Galaxies`, `StarBattle`, `Troix`, `Slitherlink`
+- `[P]` is a puzzle sorted name
+
+    | Sorted name | Puzzle name    |
+    | :---------: | :-------------:|
+    |     `B`     | Binox          |
+    |     `G`     | Galaxies       |
+    |     `SB`    | StarBattle     |
+    |     `T`     | Troix          |
+    |     `SL`    | Slitherlink    |
+
 - `[D]` is path to problem data
 - Example running
     ```
-    python .\app\main.py -p StarBattle -d ./data/star-battle/puzzle_1.json
+    python .\app\main.py -p SB -d ./data/star-battle/puzzle_1.json
     ```
 - Help `-h` for more details:
     ```

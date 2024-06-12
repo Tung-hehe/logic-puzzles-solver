@@ -6,6 +6,14 @@ from rich.console import Console
 from pathlib import Path
 
 
+PUZZLE_NAME = {
+    'B': 'Binox',
+    'G': 'Galaxies',
+    'SB': 'StarBattle',
+    'T': 'Troix',
+    'SL': 'Slitherlink',
+}
+
 class PythonPath():
     def __init__(self, path: Path):
         self.path = path
@@ -27,7 +35,7 @@ def main():
     opt = parser.parse_args()
     with PythonPath(Path(__file__).absolute().parents[2]):
         puzzle = importlib.import_module(f'src.puzzles')
-        model = getattr(puzzle, opt.p)(Path(opt.d))
+        model = getattr(puzzle, PUZZLE_NAME[opt.p])(Path(opt.d))
         console = Console()
         with console.status("[bold green] Solving...") as status:
             model.initModel()
