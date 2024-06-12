@@ -9,7 +9,8 @@
 - $n_C$: number of columns
 - $F$: set of all cells that must be surround of lines
 - $L(i, j)$: number of lines must surround cell $(i, j)$
-- $N(i, j)$: set of all lines connect to point $(i, j)$
+- $N_H(i, j)$: set of all horizontal lines connect to point $(i, j)$
+- $N_V(i, j)$: set of all vertical lines connect to point $(i, j)$
 
 ## 3. Variables
 $$
@@ -36,10 +37,10 @@ $$
 ## 4. Constraints
 
 ### 4.1. The numbers indicate how many lines surround each cell
-$$ h(i, j) + h(i + 1, j) + v(i, j) + v(i, j + 1) = L(i, j) \forall (i, j) \in F$$
+$$ h(i, j) + h(i + 1, j) + v(i, j) + v(i, j + 1) = L(i, j),  \forall (i, j) \in F$$
 
 ### 4.2. Lines connected into a number of disjoint closed cycles.
-$$\sum\limits_{(u, v) \in N(i, j)} = 2 \cdot p(i, j) 0 \leq i \le n_R + 1, 0 \leq j \le n_C + 1$$
+$$\sum\limits_{(s, t) \in N_H(i, j)}{h(s, t)} + \sum\limits_{(s, t) \in N_V(i, j)}{v(s, t)} = 2 \cdot p(i, j), \forall 0 \leq i \le n_R + 1, 0 \leq j \le n_C + 1$$
 
 ## 5. Implement
 
