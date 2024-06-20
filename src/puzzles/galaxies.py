@@ -5,12 +5,12 @@ from pathlib import Path
 import mip
 import networkx as nx
 
-from .model import Model
 
+from src.model import BaseModel
 from src.utils import Colors
 
 
-class Galaxies(Model):
+class Galaxies(BaseModel):
 
     def __init__(self, dataPath: Path) -> None:
         super().__init__(dataPath)

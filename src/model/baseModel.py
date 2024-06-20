@@ -6,7 +6,7 @@ import mip
 from src.utils import DataIO, Colors
 
 
-class Model:
+class BaseModel:
 
     def __init__(self, dataPath: Path) -> None:
         self.startTime = datetime.now()
