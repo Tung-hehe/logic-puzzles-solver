@@ -13,13 +13,14 @@ pip install -r requirements.txt
     ```
 - `[P]` is a puzzle sorted name
 
-    | Sorted name | Puzzle name    |
-    | :---------: | :------------- |
-    |     `B`     | Binox          |
-    |     `G`     | Galaxies       |
-    |     `SB`    | StarBattle     |
-    |     `T`     | Troix          |
-    |     `SL`    | Slitherlink    |
+    | Sorted name | Puzzle name         |
+    | :---------: | :------------------ |
+    |     `B`     | Binox               |
+    |     `G`     | Galaxies            |
+    |     `SB`    | StarBattle          |
+    |     `T`     | Troix               |
+    |     `SL`    | Slitherlink         |
+    |     `HMM`   | Haunted Mirror Maze |
 
 - `[D]` is path to problem data
 - Example running
@@ -204,3 +205,55 @@ Example data:
 Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/slitherlink.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/slitherlink/)
+
+
+## Hauted Mirror Maze
+Rules:
+1. Fill each empty box of the puzzle grid with the right monster: a ghost, vampire, or zombie
+2. The clues along the edges tell you how many monsters you can see from that point looking into the grid, and the diagonal lines are mirrors that reflect a line of sight 90 degrees, as with a laser..
+3. Vampires (V) are seen only head-on (have no reflection in a mirror).
+4. Ghosts (G) are only seen as reflections in mirrors (not head-on).
+5. Zmobies (Z) are always seen.
+6. Each puzzle also has a handy list of monsters so you know how many of each type are hiding in that mirror maze.
+7. Some cells contain the same monsters.
+8. Some cells contain fixed monsters.
+
+Data structure:
+```json
+    {
+        "shape": [7, 7], // size of puzzle [number of rows, number of columns]
+        "visibility": { // number of monsters you can see from that point looking into the grid
+            "top": [0, 1, 3, 12, 1, 1, 1],
+            "bot": [1, 1, 3, 1, 1, 1, 1],
+            "left": [0, 2, 1, 4, 2, 0, 1],
+            "right": [3, 2, 2, 2, 11, 2, 1]
+        },
+        "mirrors": [ // mirrors position
+            {"row": 0, "col": 0, "val": "/"},
+            {"row": 0, "col": 1, "val": "/"},
+            {"row": 0, "col": 2, "val": "\\"},
+            {"row": 0, "col": 3, "val": "\\"},
+            {"row": 0, "col": 4, "val": "\\"}
+        ],
+        "nMonsters": [ // number of each type of monsters are hiding in that mirror maze
+            {"name": "V", "val": 19},
+            {"name": "Z", "val": 10},
+            {"name": "G", "val": 20}
+        ],
+        "fixedCells": [
+            {"row": 5, "col": 3, "val": "Z"} // fixed monster cells
+        ],
+        "sameCells": [ // cells contain the same monsters
+            {"row": 1, "col": 2},
+            {"row": 4, "col": 5},
+            {"row": 5, "col": 0}
+        ]
+    }
+```
+
+Example data:
+1. [./data/hauntedMirrorMaze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/hauntedMirrorMaze/puzzle_1.json): `#2` in [ Haunted Mirror Maze, 7 x 7 Format](https://thegriddle.net/puzzledir/haunted_5.pdf)
+
+Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/hauntedMirrorMaze.md)
+
+Detail and puzzles: [Krazydad](https://krazydad.com/haunted/)

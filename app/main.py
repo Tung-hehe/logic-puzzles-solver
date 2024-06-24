@@ -12,6 +12,7 @@ PUZZLE_NAME = {
     'SB': 'StarBattle',
     'T': 'Troix',
     'SL': 'Slitherlink',
+    'HMM': 'HauntedMirrorMaze'
 }
 
 class PythonPath():

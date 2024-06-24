@@ -14,14 +14,13 @@ class Galaxies(BaseModel):
 
     def __init__(self, dataPath: Path) -> None:
         super().__init__(dataPath)
-        self.nGalaxies = len(self.data['galaxies'])
-        self.verifyData()
+        self.nGalaxies = len(self.data.galaxies)
         return None
 
     def verifyData(self) -> None:
-        if self.nGalaxies == 0:
+        if self.data.galaxies == 0:
             raise ValueError('Puzzle must have at least 1 galaxy.')
-        for galaxy in self.data['galaxies']:
+        for galaxy in self.data.galaxies:
             if len(galaxy) not in [1, 2, 4]:
                 raise ValueError(f'Galaxy center must be have 1, 2 or 4 cells, not {len(galaxy)}.')
             if len(set([(cell['row'], cell['col']) for cell in galaxy])) != len(galaxy):
@@ -36,14 +35,14 @@ class Galaxies(BaseModel):
 
     def initModel(self) -> None:
         for galaxy in range(self.nGalaxies):
-            self.data['galaxies'][galaxy] = sorted(
-                self.data['galaxies'][galaxy], key=lambda x: (x['row'], x['col'])
+            self.data.galaxies[galaxy] = sorted(
+                self.data.galaxies[galaxy], key=lambda x: (x['row'], x['col'])
             )
         self.centers = [
             (
                 sum([cell['row'] for cell in galaxy]) / len(galaxy),
                 sum([cell['col'] for cell in galaxy]) / len(galaxy)
-            ) for galaxy in self.data['galaxies']
+            ) for galaxy in self.data.galaxies
         ]
         self.findAllCandidateCellOfGalaxies()
         super().initModel()
@@ -58,15 +57,15 @@ class Galaxies(BaseModel):
     def findAllCandidateCellOfGalaxies(self) -> None:
         allCentersCells = [
             (cell['row'], cell['col'])
-            for cell in sum(self.data['galaxies'], start=[])
+            for cell in sum(self.data.galaxies, start=[])
         ]
 
-        self.candidateCellsOfGalaxies = [[] for _ in range(len(self.data['galaxies']))]
+        self.candidateCellsOfGalaxies = [[] for _ in range(len(self.data.galaxies))]
         for galaxy, center in enumerate(self.centers):
-            gapRow = min(center[0], self.data['shape'][0] - 1 - center[0])
-            gapCol = min(center[1], self.data['shape'][1] - 1 - center[1])
+            gapRow = min(center[0], self.data.shape[0] - 1 - center[0])
+            gapCol = min(center[1], self.data.shape[1] - 1 - center[1])
             for row, col in itertools.product(
-                range(int(center[0] - gapRow), self.data['galaxies'][galaxy][0]['row'] + 1),
+                range(int(center[0] - gapRow), self.data.galaxies[galaxy][0]['row'] + 1),
                 range(int(center[1] - gapCol), int(center[1] + gapCol + 1))
             ):
                 if (row, col) in allCentersCells:
@@ -106,8 +105,8 @@ class Galaxies(BaseModel):
                 [
                     self.addVariable(vtype=mip.BINARY, name=f'x_{row}_{col}_{galaxy}')
                     for galaxy in range(self.nGalaxies)
-                ] for col in range(self.data['shape'][1])
-            ] for row in range(self.data['shape'][0])
+                ] for col in range(self.data.shape[1])
+            ] for row in range(self.data.shape[0])
         ]
         return None
 
@@ -122,7 +121,7 @@ class Galaxies(BaseModel):
 
     def addEachCellOnlyContaintInOneGalaxy(self) -> None:
         for row, col in itertools.product(
-            range(self.data['shape'][0]), range(self.data['shape'][1])
+            range(self.data.shape[0]), range(self.data.shape[1])
         ):
             self.addConstraint(
                 mip.xsum(self.xVars[row][col][galaxy] for galaxy in range(self.nGalaxies)) == 1
@@ -130,7 +129,7 @@ class Galaxies(BaseModel):
         return None
 
     def addCenterCellsContaintInGalaxies(self) -> None:
-        for index, centersCell in enumerate(self.data['galaxies']):
+        for index, centersCell in enumerate(self.data.galaxies):
             for cell in centersCell:
                 for galaxy in range(self.nGalaxies):
                     if galaxy == index:
@@ -146,10 +145,10 @@ class Galaxies(BaseModel):
     def addCandidateCellsOfGalaxiesConstraint(self) -> None:
         for galaxy, candidateCells in enumerate(self.candidateCellsOfGalaxies):
             for row, col in itertools.product(
-                range(self.data['shape'][0]), range(self.data['shape'][1])
+                range(self.data.shape[0]), range(self.data.shape[1])
             ):
                 if (row, col) not in candidateCells + [
-                    (cell['row'], cell['col']) for cell in self.data['galaxies'][galaxy]
+                    (cell['row'], cell['col']) for cell in self.data.galaxies[galaxy]
                 ]:
                     self.addConstraint(
                         self.xVars[row][col][galaxy] == 0
@@ -159,7 +158,7 @@ class Galaxies(BaseModel):
     def addSymetricalConstraints(self) -> None:
         for galaxy, cells in enumerate(self.candidateCellsOfGalaxies):
             for cell in cells:
-                if cell[0] <= self.data['galaxies'][galaxy][0]['row']:
+                if cell[0] <= self.data.galaxies[galaxy][0]['row']:
                     symetricalCell = self.findSymetricalCell(self.centers[galaxy], cell)
                     self.addConstraint(
                         self.xVars[cell[0]][cell[1]][galaxy]
@@ -193,10 +192,10 @@ class Galaxies(BaseModel):
             if len(self.candidateCellsOfGalaxies[galaxy]) == 0:
                 continue
             graph = self.createCandidateCellsGraph(
-                self.candidateCellsOfGalaxies[galaxy], self.data['galaxies'][galaxy]
+                self.candidateCellsOfGalaxies[galaxy], self.data.galaxies[galaxy]
             )
             for cell in self.candidateCellsOfGalaxies[galaxy]:
-                if cell[0] <= self.data['galaxies'][galaxy][0]['row']:
+                if cell[0] <= self.data.galaxies[galaxy][0]['row']:
                     paths = self.findAllPathsFromCellToCenter(graph, cell)
                     if len(paths) == 0:
                         self.addConstraint(
@@ -227,16 +226,16 @@ class Galaxies(BaseModel):
 
     def visualize(self) -> None:
         super().visualize()
-        galaxiesShapes = [[None] * self.data['shape'][1] for _ in range(self.data['shape'][0])]
+        galaxiesShapes = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
         for row, col in itertools.product(
-            range(self.data['shape'][0]),
-            range(self.data['shape'][1])
+            range(self.data.shape[0]),
+            range(self.data.shape[1])
         ):
             galaxiesShapes[row][col] = sum([
                 galaxy*self.xVars[row][col][galaxy].x for galaxy in range(self.nGalaxies)
             ])
         centersPositions = {}
-        for galaxy in self.data['galaxies']:
+        for galaxy in self.data.galaxies:
             if len(galaxy) == 1:
                 centersPositions[galaxy[0]['row'], galaxy[0]['col']] = 'C'
             elif len(galaxy) == 2:
@@ -252,16 +251,16 @@ class Galaxies(BaseModel):
                 cell in centersPositions.keys()
                 and centersPositions[(row, col)] == postion
             )
-        for row in range(self.data['shape'][0]):
+        for row in range(self.data.shape[0]):
             renderUpRow = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
             renderRow = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
-            for col in range(self.data['shape'][1]):
+            for col in range(self.data.shape[1]):
                 if checkCenterPosition((row, col), 'C'):
                     renderRow += f'{Colors.GREEN} 𖤓 {Colors.ENDC}'
                 else:
                     renderRow += f'   '
                 if (
-                    col == self.data['shape'][1] - 1
+                    col == self.data.shape[1] - 1
                     or galaxiesShapes[row][col] != galaxiesShapes[row][col + 1]
                 ):
                     renderRow += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
@@ -289,5 +288,5 @@ class Galaxies(BaseModel):
                         renderUpRow += f'   {crossNode}'
             print(renderUpRow)
             print(renderRow)
-        print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data["shape"][1] + 1))}{Colors.ENDC}')
+        print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data.shape[1] + 1))}{Colors.ENDC}')
         return None

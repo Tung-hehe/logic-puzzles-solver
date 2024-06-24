@@ -19,25 +19,25 @@ class LineModel(BaseModel):
         self.hVars = [
             [
                 self.addVariable(vtype=mip.BINARY, name=f'h_{row}_{col}')
-                for col in range(self.data['shape'][1])
+                for col in range(self.data.shape[1])
             ]
-            for row in range(self.data['shape'][0] + 1)
+            for row in range(self.data.shape[0] + 1)
         ]
         # Vertical line variables
         self.vVars = [
             [
                 self.addVariable(vtype=mip.BINARY, name=f'v_{row}_{col}')
-                for col in range(self.data['shape'][1] + 1)
+                for col in range(self.data.shape[1] + 1)
             ]
-            for row in range(self.data['shape'][0])
+            for row in range(self.data.shape[0])
         ]
         # Point variables
         self.pVars = [
             [
                 self.addVariable(vtype=mip.BINARY, name=f'p_{row}_{col}')
-                for col in range(self.data['shape'][1] + 1)
+                for col in range(self.data.shape[1] + 1)
             ]
-            for row in range(self.data['shape'][0] + 1)
+            for row in range(self.data.shape[0] + 1)
         ]
         return None
 
@@ -48,16 +48,16 @@ class LineModel(BaseModel):
 
     def addLinesConnectedIntoDisjointClosedCyclesConstraint(self) -> None:
         for row, col in itertools.product(
-            range(self.data['shape'][0] + 1), range(self.data['shape'][1] + 1)
+            range(self.data.shape[0] + 1), range(self.data.shape[1] + 1)
         ):
             linesVars = []
             if row > 0:
                 linesVars.append(self.vVars[row - 1][col])
-            if row < self.data['shape'][0]:
+            if row < self.data.shape[0]:
                 linesVars.append(self.vVars[row][col])
             if col > 0:
                 linesVars.append(self.hVars[row][col - 1])
-            if col < self.data['shape'][1]:
+            if col < self.data.shape[1]:
                 linesVars.append(self.hVars[row][col])
             if len(linesVars) > 0:
                 self.addConstraint(
@@ -76,11 +76,11 @@ class LineModel(BaseModel):
     def findCycles(self) -> list[list]:
         allLines = [
             (row, col, 'h') for row, col in itertools.product(
-                range(self.data['shape'][0] + 1), range(self.data['shape'][1])
+                range(self.data.shape[0] + 1), range(self.data.shape[1])
             ) if self.hVars[row][col].x == 1
         ] + [
             (row, col, 'v') for row, col in itertools.product(
-                range(self.data['shape'][0]), range(self.data['shape'][1] + 1)
+                range(self.data.shape[0]), range(self.data.shape[1] + 1)
             ) if self.vVars[row][col].x == 1
         ]
         cycles = []

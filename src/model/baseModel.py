@@ -3,19 +3,27 @@ from pathlib import Path
 
 import mip
 
-from src.utils import DataIO, Colors
+from src.utils import (
+    DataIO,
+    DataModel,
+    Colors
+)
 
 
 class BaseModel:
 
     def __init__(self, dataPath: Path) -> None:
         self.startTime = datetime.now()
-        self.data = DataIO.readJsonData(dataPath)
+        self.data = DataModel(**DataIO.readJsonData(dataPath))
+        self.verifyData()
         # Init model
         self._model = mip.Model(solver_name='CBC')
         # Set MIPFocus = 1
         self._model.solver.set_emphasis(mip.SearchEmphasis.FEASIBILITY)
         self._model.verbose = 0
+        return None
+
+    def verifyData(self) -> None:
         return None
 
     def initModel(self) -> None:

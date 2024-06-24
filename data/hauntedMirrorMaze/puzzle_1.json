@@ -1,23 +1,45 @@
 {
-    "shape": [4, 4],
-    "monsters": {
-        "ghost": 2,
-        "vampire": 3,
-        "zombies": 4
-    },
+    "shape": [7, 7],
     "visibility": {
-        "top": [1, 1, 1, 1],
-        "down": [1, 5, 0, 1],
-        "left": [3, 0, 1, 5],
-        "right": [3, 2, 0, 1]
+        "top": [0, 1, 3, 12, 1, 1, 1],
+        "bottom": [1, 1, 3, 1, 1, 1, 1],
+        "left": [0, 2, 1, 4, 2, 0, 1],
+        "right": [3, 2, 2, 2, 11, 2, 1]
     },
     "mirrors": [
-        {"row": 0, "col": 1, "val": "\\"},
-        {"row": 0, "col": 3, "val": "/"},
-        {"row": 1, "col": 0, "val": "/"},
-        {"row": 1, "col": 1, "val": "/"},
-        {"row": 1, "col": 2, "val": "\\"},
-        {"row": 2, "col": 3, "val": "/"},
-        {"row": 3, "col": 2, "val": "/"}
+        {"row": 0, "col": 0, "val": "/"},
+        {"row": 0, "col": 1, "val": "/"},
+        {"row": 0, "col": 2, "val": "\\"},
+        {"row": 0, "col": 3, "val": "\\"},
+        {"row": 0, "col": 4, "val": "\\"},
+        {"row": 0, "col": 6, "val": "/"},
+        {"row": 1, "col": 3, "val": "/"},
+        {"row": 1, "col": 5, "val": "\\"},
+        {"row": 2, "col": 0, "val": "\\"},
+        {"row": 2, "col": 1, "val": "\\"},
+        {"row": 2, "col": 3, "val": "\\"},
+        {"row": 2, "col": 6, "val": "/"},
+        {"row": 3, "col": 2, "val": "\\"},
+        {"row": 3, "col": 4, "val": "/"},
+        {"row": 3, "col": 5, "val": "\\"},
+        {"row": 4, "col": 0, "val": "\\"},
+        {"row": 4, "col": 1, "val": "/"},
+        {"row": 4, "col": 4, "val": "/"},
+        {"row": 5, "col": 2, "val": "/"},
+        {"row": 5, "col": 4, "val": "\\"},
+        {"row": 5, "col": 5, "val": "/"},
+        {"row": 5, "col": 6, "val": "\\"},
+        {"row": 6, "col": 1, "val": "\\"},
+        {"row": 6, "col": 3, "val": "/"},
+        {"row": 6, "col": 5, "val": "\\"}
+    ],
+    "nMonsters": [],
+    "fixedCells": [
+        {"row": 5, "col": 3, "val": "Z"}
+    ],
+    "sameCells": [
+        {"row": 1, "col": 2},
+        {"row": 4, "col": 5},
+        {"row": 5, "col": 0}
     ]
 }
