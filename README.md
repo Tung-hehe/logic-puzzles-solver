@@ -237,8 +237,8 @@ Data structure:
         ],
         "nMonsters": [ // number of each type of monsters are hiding in that mirror maze
             {"name": "V", "val": 19},
-            {"name": "Z", "val": 10},
-            {"name": "G", "val": 20}
+            {"name": "G", "val": 20},
+            {"name": "Z", "val": 10}
         ],
         "fixedCells": [
             {"row": 5, "col": 3, "val": "Z"} // fixed monster cells
@@ -252,7 +252,8 @@ Data structure:
 ```
 
 Example data:
-1. [./data/hauntedMirrorMaze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/hauntedMirrorMaze/puzzle_1.json): `#2` in [ Haunted Mirror Maze, 7 x 7 Format](https://thegriddle.net/puzzledir/haunted_5.pdf)
+1. [./data/hauntedMirrorMaze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/hauntedMirrorMaze/puzzle_1.json): `#1` in [ Haunted Mirror Maze, 6 x 6 Format](https://thegriddle.net/puzzledir/hmm_2013_09_10.pdf)
+2. [./data/hauntedMirrorMaze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/hauntedMirrorMaze/puzzle_2.json): `#2` in [ Haunted Mirror Maze, 7 x 7 Format](https://thegriddle.net/puzzledir/haunted_5.pdf)
 
 Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/hauntedMirrorMaze.md)
 

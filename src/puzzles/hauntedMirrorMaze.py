@@ -1,10 +1,8 @@
 import itertools
 
-from enum import Enum
 from pathlib import Path
 
 import mip
-import networkx as nx
 
 
 from src.model import BaseModel
@@ -61,7 +59,7 @@ class HauntedMirrorMaze(BaseModel):
             total.append(monster['val'])
         if len(set(monsters)) != len(monsters):
             raise ValueError(f'Monsters are duplicate.')
-        if sum(total) >= self.data.shape[0] * self.data.shape[1] - len(self.data.mirrors):
+        if sum(total) > self.data.shape[0] * self.data.shape[1] - len(self.data.mirrors):
             raise ValueError(f'Too much monsters to fill in puzzle.')
         return None
 
@@ -191,6 +189,8 @@ class HauntedMirrorMaze(BaseModel):
     def addVisibleMonstersConstraints(self) -> None:
         for position, visibleMonstersList in self.data.visibility.items():
             for indexCell, nMonsters in enumerate(visibleMonstersList):
+                if nMonsters is  None:
+                    continue
                 headOnCells, reflectionCells = self.findVisibleCells(position, indexCell)
                 self.addConstraint(
                     mip.xsum(
@@ -290,19 +290,31 @@ class HauntedMirrorMaze(BaseModel):
         renderedLinesInMainBoard = self.getRenderedLinesInMainBoard()
         topLine = f'{Colors.GRAY}    '
         for cell in self.data.visibility[Position.Top]:
-            topLine += str(cell).center(4)
-        topLine += f'   {Colors.ENDC}'
+            if cell is None:
+                topLine += '    '
+            else:
+                topLine += str(cell).center(4)
+        topLine += f'{Colors.ENDC}'
         print(topLine)
         for i, l in enumerate(renderedLinesInMainBoard):
             if i % 2:
-                leftNumber = str(self.data.visibility[Position.Left][int(i/2)]).center(3)
-                rightNumber = str(self.data.visibility[Position.Right][int(i/2)]).center(3)
+                leftNumber = self.data.visibility[Position.Left][int(i/2)]
+                if leftNumber is None: leftNumber = '   '
+                else: leftNumber = str(leftNumber).center(3)
+
+                rightNumber = self.data.visibility[Position.Right][int(i/2)]
+                if rightNumber is None: rightNumber = '   '
+                else: rightNumber = str(rightNumber).center(3)
+
                 print(f'{Colors.GRAY}{leftNumber}{Colors.ENDC}{l}{Colors.GRAY}{rightNumber}{Colors.ENDC}')
             else:
                 print(f'   {l}    ')
         bottomLine = f'{Colors.GRAY}    '
         for cell in self.data.visibility[Position.Bottom]:
-            bottomLine += str(cell).center(4)
-        bottomLine += f'   {Colors.ENDC}'
+            if cell is None:
+                bottomLine += '    '
+            else:
+                bottomLine += str(cell).center(4)
+        bottomLine += f'{Colors.ENDC}'
         print(bottomLine)
         return None
