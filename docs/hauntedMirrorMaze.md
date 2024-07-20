@@ -28,17 +28,17 @@
 $$v(i, j) = \begin{cases}
     1 & \text{if cell } (i, j) \text{ containts a vampire } \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
+\end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 $$g(i, j) = \begin{cases}
     1 & \text{if cell } (i, j) \text{ containts a ghost } \\
     0 & \text{otherwise}
-\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
+\end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 $$z(i, j) = \begin{cases}
     1 & \text{if cell } (i, j) \text{ containts a zombie } \\
     0 & \text{otherwise}
-\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C$$
+\end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 ## 4. Constraints
 ### 4.1. Mirror cell not contain monster
@@ -51,7 +51,7 @@ $$
 $$
 
 ### 4.2. Each cell containt one monster except mirror cells
-$$v(i, j) + g(i, j) + z(i, j) == 1, \forall 0 \leq i \le n_R, 0 \leq j \le n_C, (i, j) \notin M$$
+$$v(i, j) + g(i, j) + z(i, j) == 1, \forall 0 \leq i < n_R, 0 \leq j < n_C, (i, j) \notin M$$
 
 ### 4.3. Fixed cells
 $$

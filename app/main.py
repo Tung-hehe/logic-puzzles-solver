@@ -9,6 +9,7 @@ from pathlib import Path
 PUZZLE_NAME = {
     'B': 'Binox',
     'G': 'Galaxies',
+    'S': 'Sudoku',
     'SB': 'StarBattle',
     'T': 'Troix',
     'SL': 'Slitherlink',

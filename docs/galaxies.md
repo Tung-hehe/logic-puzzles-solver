@@ -23,37 +23,37 @@ $$
 x(i, j, g) = \begin{cases}
     1 & \text{if galaxy } g \text{containts cell } (i, j) \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C, 0 \leq g \le n_G
+\end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C, 0 \leq g < n_G
 $$
 
 $$
     t(i, j, g, p) = \begin{cases}
     1 & x(u, v, g) = 1, \forall (u, v) \in V(p) \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq g \le n_G, (i, j) in F_g, p \in P(i, j, g)
+\end{cases}, \forall 0 \leq g < n_G, (i, j) in F_g, p \in P(i, j, g)
 $$
 
 ## 4. Constraints
 
 ### 4.1. The puzzle is completely tiled with galaxies
-$$ \sum_{g = 0}^{n_G - 1}{x(i, j, g)} = 1, \forall 0 \leq i \le n_C, 0 \leq j \le n_R, 0 \leq g \le n_G$$
+$$ \sum_{g = 0}^{n_G - 1}{x(i, j, g)} = 1, \forall 0 \leq i < n_C, 0 \leq j < n_R, 0 \leq g < n_G$$
 
 ### 4.2. Galaxy containts its center.
-$$x(i, j, g) = 1, \forall 0 \leq g \le n_G, (i, j) \in C_g$$
+$$x(i, j, g) = 1, \forall 0 \leq g < n_G, (i, j) \in C_g$$
 
 ### 4.3. Galaxy not containt the cell not in its candicate cells
-$$x(i, j, g) = 0, \forall 0 \leq g \le n_G, (i, j) \notin F_g$$
+$$x(i, j, g) = 0, \forall 0 \leq g < n_G, (i, j) \notin F_g$$
 
 ### 4.4. Symmetric cell.
-$$x(i, j, g) = x(s_r(i, j, g), s_c(i, j, g), g), \forall 0 \leq g \le n_G, (i, j) \in F_g$$
+$$x(i, j, g) = x(s_r(i, j, g), s_c(i, j, g), g), \forall 0 \leq g < n_G, (i, j) \in F_g$$
 
 ### 4.5. Represent $t$
 $$
 \begin{cases}
     \sum\limits_{(u, v) \in V(p)}{x(u, v)} \geq |V(p)| \cdot t(i, j, g, p) \\
     \sum\limits_{(u, v) \in V(p)}{x(u, v)} + 1\leq t(i, j, g, p) + |V(p)|\\
-\end{cases}, \forall 0 \leq g \le n_G, (i, j) \in F_g, p \in P(i, j, g)
+\end{cases}, \forall 0 \leq g < n_G, (i, j) \in F_g, p \in P(i, j, g)
 $$
 
 ### 4.6. All cells of a galaxy are connected.
-$$x(i, j, g) \leq \sum\limits_{p \in P(i, j, g)}{t(i, j, g, p)}, \forall 0 \leq g \le n_G, (i, j) \in F_g$$
+$$x(i, j, g) \leq \sum\limits_{p \in P(i, j, g)}{t(i, j, g, p)}, \forall 0 \leq g < n_G, (i, j) \in F_g$$

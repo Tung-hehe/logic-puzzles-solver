@@ -17,21 +17,21 @@ $$
 h(i, j) = \begin{cases}
     1 & \text{if vertical line } (i, j) \text{ is connected} \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq i \le n_R + 1, 0 \leq j \le n_C
+\end{cases}, \forall 0 \leq i < n_R + 1, 0 \leq j < n_C
 $$
 
 $$
 v(i, j) = \begin{cases}
     1 & \text{if vertical line } (i, j) \text{ is connected} \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq i \le n_R, 0 \leq j \le n_C + 1
+\end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C + 1
 $$
 
 $$
 p(i, j) = \begin{cases}
     1 & \text{if point } (i, j) \text{ is connected} \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq i \le n_R + 1, 0 \leq j \le n_C + 1
+\end{cases}, \forall 0 \leq i < n_R + 1, 0 \leq j < n_C + 1
 $$
 
 ## 4. Constraints
@@ -40,7 +40,7 @@ $$
 $$ h(i, j) + h(i + 1, j) + v(i, j) + v(i, j + 1) = L(i, j),  \forall (i, j) \in F$$
 
 ### 4.2. Lines connected into a number of disjoint closed cycles.
-$$\sum\limits_{(s, t) \in N_H(i, j)}{h(s, t)} + \sum\limits_{(s, t) \in N_V(i, j)}{v(s, t)} = 2 \cdot p(i, j), \forall 0 \leq i \le n_R + 1, 0 \leq j \le n_C + 1$$
+$$\sum\limits_{(s, t) \in N_H(i, j)}{h(s, t)} + \sum\limits_{(s, t) \in N_V(i, j)}{v(s, t)} = 2 \cdot p(i, j), \forall 0 \leq i < n_R + 1, 0 \leq j < n_C + 1$$
 
 ## 5. Implement
 
