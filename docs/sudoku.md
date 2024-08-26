@@ -9,7 +9,7 @@ Rules:
 - $n$: size of grid
 - $F$: set of fixed cells
 - $V(i, j)$: value of fixed cell $(i, j)$
-- $B_b$: set of cells in a block with order $b$, $0 \leq b < \sqrt{n}$
+- $B_b$: set of cells in a block with order $b$, $0 \leq b < n$
 
 ## 3. Variables
 $$x(i, j, k) = \begin{cases}
@@ -39,7 +39,7 @@ $$
     \sum\limits_{i = 0}^{n - 1}{x(i, j, k)} = 1, \forall 0 \leq j < n, 1 \leq k  \leq n
 $$
 
-### 4.5. Each column not contain duplicate values.
+### 4.5. Each block not contain duplicate values.
 $$
-    \sum\limits_{(i, j) \in B_b}{x(i, j, k)} = 1, \forall 0 \leq b < \sqrt{n}, 1 \leq k  \leq n
+    \sum\limits_{(i, j) \in B_b}{x(i, j, k)} = 1, \forall 0 \leq b < n, 1 \leq k  \leq n
 $$
