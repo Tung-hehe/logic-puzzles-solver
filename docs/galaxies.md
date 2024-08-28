@@ -15,8 +15,8 @@
     - For each cell $(i, j) \in F_g$ we find all path from $c$ to the center of galaxy $g$
     - Remove paths containt at least one cycle
 - $V(p)$: set of all cells in path $p$ except head cell and tail cell
-- $s_r(i, j, g)$: symmetric row of cell $(i, j)$ with center of galaxy $g$
-- $s_c(i, j, g)$: symmetric columns of cell $(i, j)$ with center of galaxy $g$
+- $s_r(i, g)$: symmetric row of cell $(i, j)$ with center of galaxy $g$
+- $s_c(j, g)$: symmetric columns of cell $(i, j)$ with center of galaxy $g$
 
 ## 3. Variables
 $$
@@ -27,16 +27,16 @@ x(i, j, g) = \begin{cases}
 $$
 
 $$
-    t(i, j, g, p) = \begin{cases}
+t(i, j, g, p) = \begin{cases}
     1 & x(u, v, g) = 1, \forall (u, v) \in V(p) \\
     0 & \text{otherwise }
-\end{cases}, \forall 0 \leq g < n_G, (i, j) in F_g, p \in P(i, j, g)
+\end{cases}, \forall 0 \leq g < n_G, (i, j) \in F_g, p \in P(i, j, g)
 $$
 
 ## 4. Constraints
 
 ### 4.1. The puzzle is completely tiled with galaxies
-$$ \sum_{g = 0}^{n_G - 1}{x(i, j, g)} = 1, \forall 0 \leq i < n_C, 0 \leq j < n_R, 0 \leq g < n_G$$
+$$ \sum_{g = 0}^{n_G - 1}{x(i, j, g)} = 1, \forall 0 \leq i < n_C, 0 \leq j < n_R$$
 
 ### 4.2. Galaxy containts its center.
 $$x(i, j, g) = 1, \forall 0 \leq g < n_G, (i, j) \in C_g$$
