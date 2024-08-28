@@ -9,7 +9,7 @@
 - $n_C$: number of columns
 - $n_G$: number of galaxies
 - $C_g$: cell surround center of galaxy $g$
-- $F_g$: set of all candidate cells of galaxy $g$ (all cells contained in galaxy $g$, according to limits and symmetry)
+- $F_g$: set of all candidate cells of galaxy $g$ (all cells can be contained in galaxy $g$, according to limits and symmetry)
 - $P(i, j, g)$: set of all path from cell $i, j$ to center of galaxy $g$
     - Each cell conect with 4 other cells: top, right, left, down
     - For each cell $(i, j) \in F_g$ we find all path from $c$ to the center of galaxy $g$
