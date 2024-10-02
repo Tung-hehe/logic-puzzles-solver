@@ -26,7 +26,7 @@ $$
 
 ### 4.2. Each cell contain one value.
 $$
-    \sum\limits_{k = 1}^{n}{x(i, j, k)} \leq 1, \forall 0 \leq i, j < n
+    \sum\limits_{k = 1}^{n}{x(i, j, k)} = 1, \forall 0 \leq i, j < n
 $$
 
 ### 4.3. Each row not contain duplicate values.
