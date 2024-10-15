@@ -1,6 +1,6 @@
 {
     "shape": [20, 20],
-    "nLinesSurround": [
+    "surrounded_line_number": [
         {"row": 0, "col": 0, "val": 2},
         {"row": 0, "col": 5, "val": 2},
         {"row": 0, "col": 7, "val": 2},

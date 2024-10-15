@@ -15,17 +15,17 @@
 
 ## 3. Variables
 $$x(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ containts X } \\
+    1 & \text{if cell } (i, j) \text{ contains X } \\
     0 & \text{otherwise }
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 $$y(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ containts O } \\
+    1 & \text{if cell } (i, j) \text{ contains O } \\
     0 & \text{otherwise}
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 $$z(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ containts I } \\
+    1 & \text{if cell } (i, j) \text{ contains I } \\
     0 & \text{otherwise}
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 

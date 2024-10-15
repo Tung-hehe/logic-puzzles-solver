@@ -1,6 +1,6 @@
 from .colors import Backgrounds, Colors
-from .dataIO import DataIO
-from .dataModel import DataModel
+from .data_io import DataIO
+from .data_model import DataModel
 from .enumeration import (
     Mirror,
     Monster,

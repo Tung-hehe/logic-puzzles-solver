@@ -1,0 +1,8 @@
+{
+    "shape": [19, 20],
+    "objects": [
+        {"row": 0, "col": 0, "type": "cartus", "val": null},
+        {"row": 0, "col": 3, "type": "number", "val": 6},
+        {"row": 1, "col": 0, "type": "cow", "val": null}
+    ]
+}

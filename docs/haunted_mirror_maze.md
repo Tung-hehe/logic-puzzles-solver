@@ -26,17 +26,17 @@
 
 ## 3. Variables
 $$v(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ containts a vampire } \\
+    1 & \text{if cell } (i, j) \text{ contains a vampire } \\
     0 & \text{otherwise }
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 $$g(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ containts a ghost } \\
+    1 & \text{if cell } (i, j) \text{ contains a ghost } \\
     0 & \text{otherwise}
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
 $$z(i, j) = \begin{cases}
-    1 & \text{if cell } (i, j) \text{ containts a zombie } \\
+    1 & \text{if cell } (i, j) \text{ contains a zombie } \\
     0 & \text{otherwise}
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C$$
 
@@ -50,7 +50,7 @@ $$
 \end{cases}, \forall (i, j) \in M
 $$
 
-### 4.2. Each cell containt one monster except mirror cells
+### 4.2. Each cell contain one monster except mirror cells
 $$v(i, j) + g(i, j) + z(i, j) == 1, \forall 0 \leq i < n_R, 0 \leq j < n_C, (i, j) \notin M$$
 
 ### 4.3. Fixed cells

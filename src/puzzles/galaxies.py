@@ -14,10 +14,10 @@ class Galaxies(BaseModel):
 
     def __init__(self, dataPath: Path) -> None:
         super().__init__(dataPath)
-        self.nGalaxies = len(self.data.galaxies)
+        self.galaxy_number = len(self.data.galaxies)
         return None
 
-    def verifyData(self) -> None:
+    def verify_data(self) -> None:
         if self.data.galaxies == 0:
             raise ValueError('Puzzle must have at least 1 galaxy.')
         for galaxy in self.data.galaxies:
@@ -25,16 +25,16 @@ class Galaxies(BaseModel):
                 raise ValueError(f'Galaxy center must be have 1, 2 or 4 cells, not {len(galaxy)}.')
             if len(set([(cell['row'], cell['col']) for cell in galaxy])) != len(galaxy):
                 raise ValueError(f'Galaxy center have duplicate cell: {galaxy}.')
-            minRow = min([cell['row'] for cell in galaxy])
-            maxRow = min([cell['row'] for cell in galaxy])
-            minCol = min([cell['col'] for cell in galaxy])
-            maxCol = min([cell['col'] for cell in galaxy])
-            if maxRow - minRow > 1 or maxCol - minCol > 1:
+            min_row = min([cell['row'] for cell in galaxy])
+            max_row = min([cell['row'] for cell in galaxy])
+            min_col = min([cell['col'] for cell in galaxy])
+            max_col = min([cell['col'] for cell in galaxy])
+            if max_row - min_row > 1 or max_col - min_col > 1:
                 raise ValueError(f'Invalid coordinate of galaxy{galaxy}')
         return None
 
-    def initModel(self) -> None:
-        for galaxy in range(self.nGalaxies):
+    def init_model(self) -> None:
+        for galaxy in range(self.galaxy_number):
             self.data.galaxies[galaxy] = sorted(
                 self.data.galaxies[galaxy], key=lambda x: (x['row'], x['col'])
             )
@@ -44,249 +44,247 @@ class Galaxies(BaseModel):
                 sum([cell['col'] for cell in galaxy]) / len(galaxy)
             ) for galaxy in self.data.galaxies
         ]
-        self.findAllCandidateCellOfGalaxies()
-        super().initModel()
+        self.get_galaxies_candidate_cells()
+        super().init_model()
         return None
 
-    def findSymetricalCell(self, center, cell) -> tuple[int, int]:
+    def get_symetrical_cells(self, center, cell) -> tuple[int, int]:
         return (
             int(center[0] + center[0] - cell[0]),
             int(center[1] + center[1] - cell[1])
         )
 
-    def findAllCandidateCellOfGalaxies(self) -> None:
-        allCentersCells = [
+    def get_galaxies_candidate_cells(self) -> None:
+        all_centers_cells = [
             (cell['row'], cell['col'])
             for cell in sum(self.data.galaxies, start=[])
         ]
 
-        self.candidateCellsOfGalaxies = [[] for _ in range(len(self.data.galaxies))]
+        self.galaxies_candidate_cells = [[] for _ in range(len(self.data.galaxies))]
         for galaxy, center in enumerate(self.centers):
-            gapRow = min(center[0], self.data.shape[0] - 1 - center[0])
-            gapCol = min(center[1], self.data.shape[1] - 1 - center[1])
+            gap_row = min(center[0], self.data.shape[0] - 1 - center[0])
+            gap_col = min(center[1], self.data.shape[1] - 1 - center[1])
             for row, col in itertools.product(
-                range(int(center[0] - gapRow), self.data.galaxies[galaxy][0]['row'] + 1),
-                range(int(center[1] - gapCol), int(center[1] + gapCol + 1))
+                range(int(center[0] - gap_row), self.data.galaxies[galaxy][0]['row'] + 1),
+                range(int(center[1] - gap_col), int(center[1] + gap_col + 1))
             ):
-                if (row, col) in allCentersCells:
+                if (row, col) in all_centers_cells:
                     continue
-                symetricalCell = self.findSymetricalCell(center, (row, col))
-                if symetricalCell in allCentersCells:
+                symetrical_cell = self.get_symetrical_cells(center, (row, col))
+                if symetrical_cell in all_centers_cells:
                     continue
-                self.candidateCellsOfGalaxies[galaxy].append((row, col))
-                if symetricalCell not in self.candidateCellsOfGalaxies[galaxy]:
-                    self.candidateCellsOfGalaxies[galaxy].append(symetricalCell)
+                self.galaxies_candidate_cells[galaxy].append((row, col))
+                if symetrical_cell not in self.galaxies_candidate_cells[galaxy]:
+                    self.galaxies_candidate_cells[galaxy].append(symetrical_cell)
         return None
 
-    def findAllPathsFromCellToCenter(self, graph, source) -> None:
+    def get_cell_to_center_paths(self, graph, source) -> None:
         if source not in graph:
             raise nx.NodeNotFound(f"Source node {source} not in graph.")
         if 'center' not in graph:
             raise nx.NodeNotFound(f"Target node 'center' not in graph.")
-        allPaths = nx.all_simple_paths(graph, source, 'center')
+        all_paths = nx.all_simple_paths(graph, source, 'center')
         result = []
-        for path in allPaths:
+        for path in all_paths:
             for cell in path:
-                nNeighborsInPath = len([c for c in graph[cell] if c in path])
+                neighbor_cell_number_in_path = len([c for c in graph[cell] if c in path])
                 if cell == source or cell == 'center':
-                    if nNeighborsInPath >= 2:
+                    if neighbor_cell_number_in_path >= 2:
                         break
                 else:
-                    if nNeighborsInPath >= 3:
+                    if neighbor_cell_number_in_path >= 3:
                         break
             else:
                 result.append(path)
         return result
 
-    def addVariables(self) -> None:
-        super().addVariables()
-        self.xVars = [
+    def add_variables(self) -> None:
+        super().add_variables()
+        self.x_vars = [[
             [
-                [
-                    self.addVariable(vtype=mip.BINARY, name=f'x_{row}_{col}_{galaxy}')
-                    for galaxy in range(self.nGalaxies)
-                ] for col in range(self.data.shape[1])
-            ] for row in range(self.data.shape[0])
-        ]
+                self.add_variable(
+                    vtype=mip.BINARY, name=f'x_{row}_{col}_{galaxy}'
+                ) for galaxy in range(self.galaxy_number)
+            ] for col in range(self.data.shape[1])
+        ] for row in range(self.data.shape[0])]
         return None
 
-    def addConstraints(self) -> None:
-        super().addConstraints()
-        self.addEachCellOnlyContaintInOneGalaxy()
-        self.addCenterCellsContaintInGalaxies()
-        self.addCandidateCellsOfGalaxiesConstraint()
-        self.addSymetricalConstraints()
-        self.addGalaxyShapeConectedConstraints()
+    def add_constraints(self) -> None:
+        super().add_constraints()
+        self.add_each_cell_only_contained_in_one_galaxy_contraints()
+        self.add_each_galaxy_contains_center_cells_contraints()
+        self.add_galaxies_candidate_cells_constraints()
+        self.add_symetrical_constraints()
+        self.add_galaxy_shape_conected_constraints()
         return None
 
-    def addEachCellOnlyContaintInOneGalaxy(self) -> None:
+    def add_each_cell_only_contained_in_one_galaxy_contraints(self) -> None:
         for row, col in itertools.product(
             range(self.data.shape[0]), range(self.data.shape[1])
         ):
-            self.addConstraint(
-                mip.xsum(self.xVars[row][col][galaxy] for galaxy in range(self.nGalaxies)) == 1
+            self.add_constraint(
+                mip.xsum(self.x_vars[row][col][galaxy] for galaxy in range(self.galaxy_number)) == 1
             )
         return None
 
-    def addCenterCellsContaintInGalaxies(self) -> None:
-        for index, centersCell in enumerate(self.data.galaxies):
-            for cell in centersCell:
-                for galaxy in range(self.nGalaxies):
+    def add_each_galaxy_contains_center_cells_contraints(self) -> None:
+        for index, center_cells in enumerate(self.data.galaxies):
+            for cell in center_cells:
+                for galaxy in range(self.galaxy_number):
                     if galaxy == index:
-                        self.addConstraint(
-                            self.xVars[cell['row']][cell['col']][galaxy] == 1
+                        self.add_constraint(
+                            self.x_vars[cell['row']][cell['col']][galaxy] == 1
                         )
                     else:
-                        self.addConstraint(
-                            self.xVars[cell['row']][cell['col']][galaxy] == 0
+                        self.add_constraint(
+                            self.x_vars[cell['row']][cell['col']][galaxy] == 0
                         )
         return None
 
-    def addCandidateCellsOfGalaxiesConstraint(self) -> None:
-        for galaxy, candidateCells in enumerate(self.candidateCellsOfGalaxies):
+    def add_galaxies_candidate_cells_constraints(self) -> None:
+        for galaxy, candidate_cells in enumerate(self.galaxies_candidate_cells):
             for row, col in itertools.product(
                 range(self.data.shape[0]), range(self.data.shape[1])
             ):
-                if (row, col) not in candidateCells + [
+                if (row, col) not in candidate_cells + [
                     (cell['row'], cell['col']) for cell in self.data.galaxies[galaxy]
                 ]:
-                    self.addConstraint(
-                        self.xVars[row][col][galaxy] == 0
+                    self.add_constraint(
+                        self.x_vars[row][col][galaxy] == 0
                     )
         return None
 
-    def addSymetricalConstraints(self) -> None:
-        for galaxy, cells in enumerate(self.candidateCellsOfGalaxies):
+    def add_symetrical_constraints(self) -> None:
+        for galaxy, cells in enumerate(self.galaxies_candidate_cells):
             for cell in cells:
                 if cell[0] <= self.data.galaxies[galaxy][0]['row']:
-                    symetricalCell = self.findSymetricalCell(self.centers[galaxy], cell)
-                    self.addConstraint(
-                        self.xVars[cell[0]][cell[1]][galaxy]
-                        == self.xVars[symetricalCell[0]][symetricalCell[1]][galaxy]
+                    symetrical_cell = self.get_symetrical_cells(self.centers[galaxy], cell)
+                    self.add_constraint(
+                        self.x_vars[cell[0]][cell[1]][galaxy]
+                        == self.x_vars[symetrical_cell[0]][symetrical_cell[1]][galaxy]
                     )
         return None
 
-    def createCandidateCellsGraph(self, candidateCells: list[tuple], centerCells: list[dict]) -> nx.Graph:
+    def create_candidate_cells_graph(self, candidate_cells: list[tuple], center_cells: list[dict]) -> nx.Graph:
         graph = nx.Graph()
         graph.add_node('center')
-        for cell in candidateCells:
+        for cell in candidate_cells:
             graph.add_node(cell)
-        for cell in candidateCells:
-            if (cell[0] + 1, cell[1]) in candidateCells:
+        for cell in candidate_cells:
+            if (cell[0] + 1, cell[1]) in candidate_cells:
                 graph.add_edge(cell, (cell[0] + 1, cell[1]))
-            if (cell[0], cell[1] + 1) in candidateCells:
+            if (cell[0], cell[1] + 1) in candidate_cells:
                 graph.add_edge(cell, (cell[0], cell[1] + 1))
-        for centerCell in centerCells:
+        for center_cell in center_cells:
             for cell in [
-                (centerCell['row'] - 1, centerCell['col']),
-                (centerCell['row'], centerCell['col'] - 1),
-                (centerCell['row'] + 1, centerCell['col']),
-                (centerCell['row'], centerCell['col'] + 1)
+                (center_cell['row'] - 1, center_cell['col']),
+                (center_cell['row'], center_cell['col'] - 1),
+                (center_cell['row'] + 1, center_cell['col']),
+                (center_cell['row'], center_cell['col'] + 1)
             ]:
-                if cell in candidateCells:
+                if cell in candidate_cells:
                     graph.add_edge(cell, 'center')
         return graph
 
-    def addGalaxyShapeConectedConstraints(self) -> None:
-        for galaxy in range(self.nGalaxies):
-            if len(self.candidateCellsOfGalaxies[galaxy]) == 0:
+    def add_galaxy_shape_conected_constraints(self) -> None:
+        for galaxy in range(self.galaxy_number):
+            if len(self.galaxies_candidate_cells[galaxy]) == 0:
                 continue
-            graph = self.createCandidateCellsGraph(
-                self.candidateCellsOfGalaxies[galaxy], self.data.galaxies[galaxy]
+            graph = self.create_candidate_cells_graph(
+                self.galaxies_candidate_cells[galaxy], self.data.galaxies[galaxy]
             )
-            for cell in self.candidateCellsOfGalaxies[galaxy]:
+            for cell in self.galaxies_candidate_cells[galaxy]:
                 if cell[0] <= self.data.galaxies[galaxy][0]['row']:
-                    paths = self.findAllPathsFromCellToCenter(graph, cell)
+                    paths = self.get_cell_to_center_paths(graph, cell)
                     if len(paths) == 0:
-                        self.addConstraint(
-                            self.xVars[cell[0]][cell[1]][galaxy] == 0
+                        self.add_constraint(
+                            self.x_vars[cell[0]][cell[1]][galaxy] == 0
                         )
                         continue
-                    tempVars = [
-                        self.addVariable(vtype=mip.BINARY) for _ in paths
+                    temp_vars = [
+                        self.add_variable(vtype=mip.BINARY) for _ in paths
                     ]
                     for index, path in enumerate(paths):
                         cells = path[1: len(path) - 1]
-                        self.addConstraint(
+                        self.add_constraint(
                             mip.xsum(
-                                self.xVars[cellInPath[0]][cellInPath[1]][galaxy]
-                                for cellInPath in cells
-                            ) >= len(cells) * tempVars[index]
+                                self.x_vars[cell_in_path[0]][cell_in_path[1]][galaxy]
+                                for cell_in_path in cells
+                            ) >= len(cells) * temp_vars[index]
                         )
-                        self.addConstraint(
+                        self.add_constraint(
                             mip.xsum(
-                                self.xVars[cellInPath[0]][cellInPath[1]][galaxy]
-                                for cellInPath in cells
-                            ) + 1 <= tempVars[index] + len(cells)
+                                self.x_vars[cell_in_path[0]][cell_in_path[1]][galaxy]
+                                for cell_in_path in cells
+                            ) + 1 <= temp_vars[index] + len(cells)
                         )
-                    self.addConstraint(
-                        self.xVars[cell[0]][cell[1]][galaxy] <= mip.xsum(tempVars)
+                    self.add_constraint(
+                        self.x_vars[cell[0]][cell[1]][galaxy] <= mip.xsum(temp_vars)
                     )
         return None
 
     def visualize(self) -> None:
         super().visualize()
-        galaxiesShapes = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
-        for row, col in itertools.product(
-            range(self.data.shape[0]),
-            range(self.data.shape[1])
-        ):
-            galaxiesShapes[row][col] = sum([
-                galaxy*self.xVars[row][col][galaxy].x for galaxy in range(self.nGalaxies)
+        galaxies_shapes = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
+        for row, col in itertools.product(range(self.data.shape[0]), range(self.data.shape[1])):
+            galaxies_shapes[row][col] = sum([
+                galaxy*self.x_vars[row][col][galaxy].x
+                for galaxy in range(self.galaxy_number)
             ])
-        centersPositions = {}
+        center_positions = {}
         for galaxy in self.data.galaxies:
             if len(galaxy) == 1:
-                centersPositions[galaxy[0]['row'], galaxy[0]['col']] = 'C'
+                center_positions[galaxy[0]['row'], galaxy[0]['col']] = 'C'
             elif len(galaxy) == 2:
                 if galaxy[0]['row'] == galaxy[1]['row']:
-                    centersPositions[galaxy[0]['row'], galaxy[0]['col']] = 'R'
+                    center_positions[galaxy[0]['row'], galaxy[0]['col']] = 'R'
                 else:
-                    centersPositions[galaxy[1]['row'], galaxy[1]['col']] = 'U'
+                    center_positions[galaxy[1]['row'], galaxy[1]['col']] = 'U'
             elif len(galaxy) == 4:
-                centersPositions[galaxy[2]['row'], galaxy[2]['col']] = 'RU'
+                center_positions[galaxy[2]['row'], galaxy[2]['col']] = 'RU'
 
-        def checkCenterPosition(cell, postion):
+        def is_center_position(cell, postion):
             return (
-                cell in centersPositions.keys()
-                and centersPositions[(row, col)] == postion
+                cell in center_positions.keys()
+                and center_positions[(row, col)] == postion
             )
+
         for row in range(self.data.shape[0]):
-            renderUpRow = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
-            renderRow = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
+            render_up_row = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
+            render_row = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
             for col in range(self.data.shape[1]):
-                if checkCenterPosition((row, col), 'C'):
-                    renderRow += f'{Colors.GREEN} 𖤓 {Colors.ENDC}'
+                if is_center_position((row, col), 'C'):
+                    render_row += f'{Colors.GREEN} 𖤓 {Colors.ENDC}'
                 else:
-                    renderRow += f'   '
+                    render_row += f'   '
                 if (
                     col == self.data.shape[1] - 1
-                    or galaxiesShapes[row][col] != galaxiesShapes[row][col + 1]
+                    or galaxies_shapes[row][col] != galaxies_shapes[row][col + 1]
                 ):
-                    renderRow += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
-                    crossNode = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
+                    render_row += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
+                    cross_node = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
                 else:
-                    if checkCenterPosition((row, col), 'R'):
-                        renderRow += f'{Colors.GREEN}𖤓{Colors.ENDC}'
+                    if is_center_position((row, col), 'R'):
+                        render_row += f'{Colors.GREEN}𖤓{Colors.ENDC}'
                     else:
-                        renderRow += f' '
-                    if checkCenterPosition((row, col), 'RU'):
-                        crossNode = f'{Colors.GREEN}𖤓{Colors.ENDC}'
+                        render_row += f' '
+                    if is_center_position((row, col), 'RU'):
+                        cross_node = f'{Colors.GREEN}𖤓{Colors.ENDC}'
                     else:
-                        crossNode = f'{Colors.GRAY}+{Colors.ENDC}'
-                if row == 0 or galaxiesShapes[row][col] != galaxiesShapes[row - 1][col]:
-                    normalCrossNode = f'{Colors.GRAY}+{Colors.ENDC}'
-                    if renderUpRow.endswith(normalCrossNode):
-                        renderUpRow = renderUpRow[:len(renderUpRow) - len(normalCrossNode)]
-                        renderUpRow += f'{Colors.BOLD}{Colors.PURPLE}+---+{Colors.ENDC}'
+                        cross_node = f'{Colors.GRAY}+{Colors.ENDC}'
+                if row == 0 or galaxies_shapes[row][col] != galaxies_shapes[row - 1][col]:
+                    normal_cross_node = f'{Colors.GRAY}+{Colors.ENDC}'
+                    if render_up_row.endswith(normal_cross_node):
+                        render_up_row = render_up_row[:len(render_up_row) - len(normal_cross_node)]
+                        render_up_row += f'{Colors.BOLD}{Colors.PURPLE}+---+{Colors.ENDC}'
                     else:
-                        renderUpRow += f'{Colors.BOLD}{Colors.PURPLE}---+{Colors.ENDC}'
+                        render_up_row += f'{Colors.BOLD}{Colors.PURPLE}---+{Colors.ENDC}'
                 else:
-                    if checkCenterPosition((row, col), 'U'):
-                        renderUpRow += f' {Colors.GREEN}𖤓{Colors.ENDC} {crossNode}'
+                    if is_center_position((row, col), 'U'):
+                        render_up_row += f' {Colors.GREEN}𖤓{Colors.ENDC} {cross_node}'
                     else:
-                        renderUpRow += f'   {crossNode}'
-            print(renderUpRow)
-            print(renderRow)
+                        render_up_row += f'   {cross_node}'
+            print(render_up_row)
+            print(render_row)
         print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data.shape[1] + 1))}{Colors.ENDC}')
         return None

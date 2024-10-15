@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ## Run
 - Change directory to this folder and run
     ```
-    python .\app\main.py -p [P] -d [D]
+    python main.py -p [P] -d [D]
     ```
 - `[P]` is a puzzle sorted name
 
@@ -26,11 +26,11 @@ pip install -r requirements.txt
 - `[D]` is path to problem data
 - Example running
     ```
-    python .\app\main.py -p SB -d ./data/star-battle/puzzle_1.json
+    python main.py -p SB -d ./data/star_battle/puzzle_1.json
     ```
 - Help `-h` for more details:
     ```
-    python .\app\main.py -h
+    python main.py -h
     ```
 - Example data in `./data/`
 
@@ -47,7 +47,7 @@ Data structure:
 ```json
     {
         "shape": [6, 6], // size of puzzle [number of rows, number of columns]
-        "nSymbols": 2, // max number of the same symbol touching in each row, col
+        "symbol_number": 2, // max number of the same symbol touching in each row, col
         "fixed": [ // fixed cells
             {"row": 0, "col": 0, "val": "X"}, // a fixed cell
             {"row": 1, "col": 2, "val": "O"},
@@ -119,7 +119,7 @@ Data structure:
 ```json
 {
     "shape": 9, // size of puzzle
-    "fixedCells": [ // fix cells
+    "fixed_cells": [ // fix cells
         {"row": 0, "col": 2, "val": 1},
         {"row": 0, "col": 3, "val": 6},
         {"row": 0, "col": 7, "val": 5},
@@ -132,7 +132,7 @@ Data structure:
 Example data:
 1. [./data/sudoku/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/sudoku/puzzle_1.json): `#1` in [ Insane Sudoku Puzzles, Volume 22, Book 1 ](https://files.krazydad.com/sudoku/sfiles/KD_Sudoku_IN22_8_v1.pdf)
 
-Modeling: [./docs/starBattle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/sudoku.md)
+Modeling: [./docs/star_battle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/sudoku.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/sudoku/)
 
@@ -146,7 +146,7 @@ Data structure:
 ```json
 {
     "shape": [10, 10], // size of puzzle [number of rows, number of columns]
-    "nStars": 2, // nStar each row, col, cage
+    "star_number": 2, // nStar each row, col, cage
     "cages": [
         // a cage includes cells
         [
@@ -170,11 +170,11 @@ Data structure:
 ```
 
 Example data:
-1. [./data/star-battle/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_1.json): `#1` in [Star Battle 8x8, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_8x8_v1_b1.pdf)
-2. [./data/star-battle/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_2.json): `#1` in [Star Battle 10x10, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_10x10_v1_b1.pdf)
-3. [./data/star-battle/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star-battle/puzzle_3.json): `#1` in [Star Battle 14x14, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_14x14_v1_b1.pdf)
+1. [./data/star_battle/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star_battle/puzzle_1.json): `#1` in [Star Battle 8x8, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_8x8_v1_b1.pdf)
+2. [./data/star_battle/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star_battle/puzzle_2.json): `#1` in [Star Battle 10x10, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_R2_10x10_v1_b1.pdf)
+3. [./data/star_battle/puzzle_3.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/star_battle/puzzle_3.json): `#1` in [Star Battle 14x14, Volume 1, Book 1](https://files.krazydad.com/starbattle/sfiles/STAR_14x14_v1_b1.pdf)
 
-Modeling: [./docs/starBattle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/starBattle.md)
+Modeling: [./docs/star_battle.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/star_battle.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/starbattle/)
 
@@ -188,7 +188,7 @@ Data structure:
 ```json
     {
         "shape": [9, 9], // size of puzzle [number of rows, number of columns]
-        "nSymbols": 2, // max number of the same symbol touching in each row, col
+        "symbol_number": 2, // max number of the same symbol touching in each row, col
         "fixed": [ // fixed cells
             {"row": 0, "col": 0, "val": "X"}, // a fixed cell
             {"row": 3, "col": 0, "val": "I"},
@@ -217,7 +217,7 @@ Data structure:
 ```json
     {
         "shape": [7, 7], // size of puzzle [number of rows, number of columns]
-        "nLinesSurround": [ // number of lines surround cells
+        "surrounded_line_number": [ // number of lines surround cells
             {"row": 0, "col": 0, "val": 2},
             {"row": 0, "col": 1, "val": 2},
         ]
@@ -262,15 +262,15 @@ Data structure:
             {"row": 0, "col": 3, "val": "\\"},
             {"row": 0, "col": 4, "val": "\\"}
         ],
-        "nMonsters": [ // number of each type of monsters are hiding in that mirror maze
+        "monster_number": [ // number of each type of monsters are hiding in that mirror maze
             {"name": "V", "val": 19},
             {"name": "G", "val": 20},
             {"name": "Z", "val": 10}
         ],
-        "fixedCells": [
+        "fixed_cells": [
             {"row": 5, "col": 3, "val": "Z"} // fixed monster cells
         ],
-        "sameCells": [ // cells contain the same monsters
+        "same_cells": [ // cells contain the same monsters
             {"row": 1, "col": 2},
             {"row": 4, "col": 5},
             {"row": 5, "col": 0}
@@ -279,9 +279,9 @@ Data structure:
 ```
 
 Example data:
-1. [./data/hauntedMirrorMaze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/hauntedMirrorMaze/puzzle_1.json): `#1` in [ Haunted Mirror Maze, 6 x 6 Format](https://thegriddle.net/puzzledir/hmm_2013_09_10.pdf)
-2. [./data/hauntedMirrorMaze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/hauntedMirrorMaze/puzzle_2.json): `#2` in [ Haunted Mirror Maze, 7 x 7 Format](https://thegriddle.net/puzzledir/haunted_5.pdf)
+1. [./data/haunted_mirror_maze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/haunted_mirror_maze/puzzle_1.json): `#1` in [ Haunted Mirror Maze, 6 x 6 Format](https://thegriddle.net/puzzledir/hmm_2013_09_10.pdf)
+2. [./data/haunted_mirror_maze/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/haunted_mirror_maze/puzzle_2.json): `#2` in [ Haunted Mirror Maze, 7 x 7 Format](https://thegriddle.net/puzzledir/haunted_5.pdf)
 
-Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/hauntedMirrorMaze.md)
+Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/haunted_mirror_maze.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/haunted/)

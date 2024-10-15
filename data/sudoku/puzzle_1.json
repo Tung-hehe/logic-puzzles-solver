@@ -1,6 +1,6 @@
 {
     "shape": 9,
-    "fixedCells": [
+    "fixed_cells": [
         {"row": 0, "col": 2, "val": 1},
         {"row": 0, "col": 3, "val": 6},
         {"row": 0, "col": 7, "val": 5},

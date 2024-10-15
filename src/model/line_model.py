@@ -4,7 +4,7 @@ from pathlib import Path
 
 import mip
 
-from .baseModel import BaseModel
+from .base_model import BaseModel
 
 
 class LineModel(BaseModel):
@@ -13,59 +13,59 @@ class LineModel(BaseModel):
         super().__init__(dataPath)
         return None
 
-    def addVariables(self) -> None:
-        super().addVariables()
+    def add_variables(self) -> None:
+        super().add_variables()
         # Horizontal line variables
-        self.hVars = [
+        self.h_vars = [
             [
-                self.addVariable(vtype=mip.BINARY, name=f'h_{row}_{col}')
+                self.add_variable(vtype=mip.BINARY, name=f'h_{row}_{col}')
                 for col in range(self.data.shape[1])
             ]
             for row in range(self.data.shape[0] + 1)
         ]
         # Vertical line variables
-        self.vVars = [
+        self.v_vars = [
             [
-                self.addVariable(vtype=mip.BINARY, name=f'v_{row}_{col}')
+                self.add_variable(vtype=mip.BINARY, name=f'v_{row}_{col}')
                 for col in range(self.data.shape[1] + 1)
             ]
             for row in range(self.data.shape[0])
         ]
         # Point variables
-        self.pVars = [
+        self.p_vars = [
             [
-                self.addVariable(vtype=mip.BINARY, name=f'p_{row}_{col}')
+                self.add_variable(vtype=mip.BINARY, name=f'p_{row}_{col}')
                 for col in range(self.data.shape[1] + 1)
             ]
             for row in range(self.data.shape[0] + 1)
         ]
         return None
 
-    def addConstraints(self) -> None:
-        super().addConstraints()
-        self.addLinesConnectedIntoDisjointClosedCyclesConstraint()
+    def add_constraints(self) -> None:
+        super().add_constraints()
+        self.add_lines_connected_into_disjoint_closed_cycles_constraint()
         return None
 
-    def addLinesConnectedIntoDisjointClosedCyclesConstraint(self) -> None:
+    def add_lines_connected_into_disjoint_closed_cycles_constraint(self) -> None:
         for row, col in itertools.product(
             range(self.data.shape[0] + 1), range(self.data.shape[1] + 1)
         ):
-            linesVars = []
+            lines_vars = []
             if row > 0:
-                linesVars.append(self.vVars[row - 1][col])
+                lines_vars.append(self.v_vars[row - 1][col])
             if row < self.data.shape[0]:
-                linesVars.append(self.vVars[row][col])
+                lines_vars.append(self.v_vars[row][col])
             if col > 0:
-                linesVars.append(self.hVars[row][col - 1])
+                lines_vars.append(self.h_vars[row][col - 1])
             if col < self.data.shape[1]:
-                linesVars.append(self.hVars[row][col])
-            if len(linesVars) > 0:
-                self.addConstraint(
-                    mip.xsum(linesVars) == 2*self.pVars[row][col]
+                lines_vars.append(self.h_vars[row][col])
+            if len(lines_vars) > 0:
+                self.add_constraint(
+                    mip.xsum(lines_vars) == 2*self.p_vars[row][col]
                 )
         return None
 
-    def findNextLine(self, line) -> tuple:
+    def find_next_line(self, line) -> tuple:
         if line[0] == 'h':
             pass
         elif line[0] == 'v':
@@ -73,50 +73,50 @@ class LineModel(BaseModel):
         else:
             raise ValueError(f'Invalid direction {line[0]}')
 
-    def findCycles(self) -> list[list]:
-        allLines = [
+    def find_cycles(self) -> list[list]:
+        all_lines = [
             (row, col, 'h') for row, col in itertools.product(
                 range(self.data.shape[0] + 1), range(self.data.shape[1])
-            ) if self.hVars[row][col].x == 1
+            ) if self.h_vars[row][col].x == 1
         ] + [
             (row, col, 'v') for row, col in itertools.product(
                 range(self.data.shape[0]), range(self.data.shape[1] + 1)
-            ) if self.vVars[row][col].x == 1
+            ) if self.v_vars[row][col].x == 1
         ]
         cycles = []
         while True:
-            if len(allLines) == 0:
+            if len(all_lines) == 0:
                 break
-            cycle = [allLines.pop(0)]
+            cycle = [all_lines.pop(0)]
             while True:
-                for index, line in enumerate(allLines):
-                    hLineConnectWithHLine = (
+                for index, line in enumerate(all_lines):
+                    h_h_connection = (
                         cycle[-1][-1] == 'h' == line[-1]
                         and cycle[-1][0] == line[0]
                         and cycle[-1][1] - line[1] in [-1, 1]
                     )
-                    hLineConnectWithVLine = (
+                    h_v_connection = (
                         cycle[-1][-1] == 'h' != line[-1]
                         and 0 <= cycle[-1][0] - line[0] <= 1
                         and 0 <= line[1] - cycle[-1][1] <= 1
                     )
-                    vLineConnectWithVLine = (
+                    v_v_connection = (
                         cycle[-1][-1] == 'v' == line[-1]
                         and cycle[-1][0] - line[0] in [-1, 1]
                         and cycle[-1][1] == line[1]
                     )
-                    vLineConnectWithHLine = (
+                    v_h_connection = (
                         cycle[-1][-1] == 'v' != line[-1]
                         and 0 <= line[0] - cycle[-1][0] <= 1
                         and 0 <= cycle[-1][1] - line[1] <= 1
                     )
                     if (
-                        hLineConnectWithHLine
-                        or hLineConnectWithVLine
-                        or vLineConnectWithVLine
-                        or vLineConnectWithHLine
+                        h_h_connection
+                        or h_v_connection
+                        or v_v_connection
+                        or v_h_connection
                     ):
-                        cycle.append(allLines.pop(index))
+                        cycle.append(all_lines.pop(index))
                         break
                 else:
                     cycles.append(cycle)
@@ -126,18 +126,18 @@ class LineModel(BaseModel):
     def solve(self) -> None:
         self._model.optimize()
         while True:
-            cycles = self.findCycles()
+            cycles = self.find_cycles()
             if len(cycles) == 1:
-                self.calculateSolvingTime()
+                self.calculate_solving_time()
                 break
             if self._model.status != mip.OptimizationStatus.OPTIMAL:
-                self.raiseErrorInfeasible()
+                self.raise_error_infeasible()
             for cycle in cycles:
-                varLines = [
-                    self.hVars[line[0]][line[1]]
-                    if line[-1] == 'h' else self.vVars[line[0]][line[1]]
+                var_lines = [
+                    self.h_vars[line[0]][line[1]]
+                    if line[-1] == 'h' else self.v_vars[line[0]][line[1]]
                     for line in cycle
                 ]
-                self.addConstraint(mip.xsum(varLines) <= len(varLines) - 1)
+                self.add_constraint(mip.xsum(var_lines) <= len(var_lines) - 1)
             self._model.optimize()
         return None

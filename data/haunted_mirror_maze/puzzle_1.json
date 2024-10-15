@@ -23,11 +23,11 @@
         {"row": 5, "col": 1, "val": "/"},
         {"row": 5, "col": 5, "val": "\\"}
     ],
-    "nMonsters": [
+    "monster_number": [
         {"name": "V", "val": 7},
         {"name": "G", "val": 7},
         {"name": "Z", "val": 7}
     ],
-    "fixedCells": [],
-    "sameCells": []
+    "fixed_cells": [],
+    "same_cells": []
 }

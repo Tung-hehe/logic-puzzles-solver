@@ -1,6 +1,6 @@
 {
     "shape": [8, 8],
-    "nStars": 1,
+    "star_number": 1,
     "cages": [
         [
             {"row": 0, "col": 0},

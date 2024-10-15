@@ -1,6 +1,6 @@
 {
     "shape": [6, 6],
-    "nSymbols": 2,
+    "symbol_number": 2,
     "fixed": [
         {"row": 0, "col": 0, "val": "X"},
         {"row": 1, "col": 2, "val": "O"},

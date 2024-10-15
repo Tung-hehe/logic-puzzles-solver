@@ -13,7 +13,7 @@
 - $P(i, j, g)$: set of all path from cell $i, j$ to center of galaxy $g$
     - Each cell conect with 4 other cells: top, right, left, down
     - For each cell $(i, j) \in F_g$ we find all path from $c$ to the center of galaxy $g$
-    - Remove paths containt at least one cycle
+    - Remove paths contain at least one cycle
 - $V(p)$: set of all cells in path $p$ except head cell and tail cell
 - $s_r(i, g)$: symmetric row of cell $(i, j)$ with center of galaxy $g$
 - $s_c(j, g)$: symmetric columns of cell $(i, j)$ with center of galaxy $g$
@@ -21,7 +21,7 @@
 ## 3. Variables
 $$
 x(i, j, g) = \begin{cases}
-    1 & \text{if galaxy } g \text{containts cell } (i, j) \\
+    1 & \text{if galaxy } g \text{contains cell } (i, j) \\
     0 & \text{otherwise }
 \end{cases}, \forall 0 \leq i < n_R, 0 \leq j < n_C, 0 \leq g < n_G
 $$
@@ -38,10 +38,10 @@ $$
 ### 4.1. The puzzle is completely tiled with galaxies
 $$ \sum_{g = 0}^{n_G - 1}{x(i, j, g)} = 1, \forall 0 \leq i < n_C, 0 \leq j < n_R$$
 
-### 4.2. Galaxy containts its center.
+### 4.2. Galaxy contains its center.
 $$x(i, j, g) = 1, \forall 0 \leq g < n_G, (i, j) \in C_g$$
 
-### 4.3. Galaxy not containt the cell not in its candicate cells
+### 4.3. Galaxy not contain the cell not in its candicate cells
 $$x(i, j, g) = 0, \forall 0 \leq g < n_G, (i, j) \notin F_g$$
 
 ### 4.4. Symmetric cell.

@@ -33,11 +33,11 @@
         {"row": 6, "col": 3, "val": "/"},
         {"row": 6, "col": 5, "val": "\\"}
     ],
-    "nMonsters": [],
-    "fixedCells": [
+    "monster_number": [],
+    "fixed_cells": [
         {"row": 5, "col": 3, "val": "Z"}
     ],
-    "sameCells": [
+    "same_cells": [
         {"row": 1, "col": 2},
         {"row": 4, "col": 5},
         {"row": 5, "col": 0}

@@ -1,2 +1,2 @@
-from .baseModel import BaseModel
-from .lineModel import LineModel
+from .base_model import BaseModel
+from .line_model import LineModel
