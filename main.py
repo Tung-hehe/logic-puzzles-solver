@@ -29,8 +29,8 @@ class PythonPath():
 def main():
     parser = argparse.ArgumentParser(
         description="Solve a puzzle",
-        epilog='example: python .\\app\main.py -p StarBattle -d ./data/star-battle/puzzle_1.json',
-        usage='python .\\app\main.py -p [P] -d [D]'
+        epilog='example: python main.py -p StarBattle -d ./data/star_battle/puzzle_1.json',
+        usage='python main.py -p [P] -d [D]'
     )
     parser.add_argument('-p', type=str, nargs='?', help='puzzle name, include: Binox, Galaxies, StarBattle, Troix')
     parser.add_argument('-d', type=str, nargs='?', help='path to data of problem')
@@ -40,7 +40,7 @@ def main():
         model = getattr(puzzle, PUZZLE_NAME[opt.p])(Path(opt.d))
         console = Console()
         with console.status("[bold green] Solving...") as status:
-            model.initModel()
+            model.init_model()
             model.solve()
         model.visualize()
 
