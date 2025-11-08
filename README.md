@@ -285,3 +285,6 @@ Example data:
 Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/haunted_mirror_maze.md)
 
 Detail and puzzles: [Krazydad](https://krazydad.com/haunted/)
+
+## Skyscraper
+- Đang phát triển
