@@ -16,8 +16,8 @@ from src.utils import (
 
 class HauntedMirrorMaze(BaseModel):
 
-    def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath)
+    def __init__(self, dataPath: str) -> None:
+        super().__init__(Path(dataPath))
         self.change_direction = {
             ((Position.Top, Position.Bottom), Mirror.RightDownToLeft): (Position.Right, Position.Left),
             ((Position.Top, Position.Bottom), Mirror.LeftDownToRight): (Position.Left, Position.Right),

@@ -11,8 +11,8 @@ from src.utils import Colors
 
 class Troix(BaseModel):
 
-    def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath)
+    def __init__(self, dataPath: str) -> None:
+        super().__init__(Path(dataPath))
         return None
 
     def verify_data(self) -> None:

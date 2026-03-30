@@ -1,3 +1,5 @@
+import json
+
 from datetime import datetime
 from pathlib import Path
 
@@ -21,6 +23,7 @@ class BaseModel:
         # Set MIPFocus = 1
         self._model.solver.set_emphasis(mip.SearchEmphasis.FEASIBILITY)
         self._model.verbose = 0
+        self.solution = None
         return None
 
     def verify_data(self) -> None:
@@ -64,4 +67,12 @@ class BaseModel:
 
     def visualize(self) -> None:
         print(f'{Colors.BOLD}{Colors.GREEN}Done! Solving time: {self.solving_time}s{Colors.ENDC}')
+        return None
+
+    def to_solution(self) -> None:
+        return None
+
+    def export_solution(self, save_path: Path) -> None:
+        with open(save_path, 'w', encoding='utf-8') as f:
+            json.dump(self.solution, f, indent=4)
         return None

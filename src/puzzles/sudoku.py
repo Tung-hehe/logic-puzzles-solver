@@ -11,8 +11,8 @@ from src.utils import Colors
 
 class Sudoku(BaseModel):
 
-    def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath)
+    def __init__(self, dataPath: str) -> None:
+        super().__init__(Path(dataPath))
         self.modifiy_fixed_cells_values()
         return None
 

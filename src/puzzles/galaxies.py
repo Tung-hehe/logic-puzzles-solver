@@ -12,8 +12,8 @@ from src.utils import Colors
 
 class Galaxies(BaseModel):
 
-    def __init__(self, dataPath: Path) -> None:
-        super().__init__(dataPath)
+    def __init__(self, dataPath: str) -> None:
+        super().__init__(Path(dataPath))
         self.galaxy_number = len(self.data.galaxies)
         return None
 
