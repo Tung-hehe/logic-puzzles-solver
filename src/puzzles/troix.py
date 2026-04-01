@@ -155,34 +155,21 @@ class Troix(BaseModel):
     def visualize(self) -> None:
         super().visualize()
         fixed_cells = [(cell['row'], cell['col']) for cell in self.data.fixed]
-        board = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
-        for row, col in itertools.product(
-            range(self.data.shape[0]),
-            range(self.data.shape[1])
-        ):
-            if self.x_vars[row][col].x == 1:
-                board[row][col] = 'X'
-            elif self.o_vars[row][col].x == 1:
-                board[row][col] = 'O'
-            elif self.i_vars[row][col].x == 1:
-                board[row][col] = 'I'
-            else:
-                raise ValueError(f'Cell ({row, col}) not contain any symbol')
         for row in range(self.data.shape[0]):
             render_up_row = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
             render_row = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
             for col in range(self.data.shape[1]):
                 if (row, col) in fixed_cells:
-                    if board[row][col] == 'X':
+                    if self.solution[row][col] == 'X':
                         render_row += f' {Colors.BOLD}{Colors.GRAY}X{Colors.ENDC} '
-                    elif board[row][col] == 'O':
+                    elif self.solution[row][col] == 'O':
                         render_row += f' {Colors.BOLD}{Colors.GRAY}O{Colors.ENDC} '
                     else:
                         render_row += f' {Colors.BOLD}{Colors.GRAY}I{Colors.ENDC} '
                 else:
-                    if board[row][col] == 'X':
+                    if self.solution[row][col] == 'X':
                         render_row += f' {Colors.BOLD}{Colors.RED}X{Colors.ENDC} '
-                    elif board[row][col] == 'O':
+                    elif self.solution[row][col] == 'O':
                         render_row += f' {Colors.BOLD}{Colors.BLUE}O{Colors.ENDC} '
                     else:
                         render_row += f' {Colors.BOLD}{Colors.GREEN}I{Colors.ENDC} '
@@ -200,3 +187,20 @@ class Troix(BaseModel):
             print(render_row)
         print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data.shape[1] + 1))}{Colors.ENDC}')
         return None
+
+    def to_solution(self) -> None:
+        self.solution = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
+        for row, col in itertools.product(
+            range(self.data.shape[0]),
+            range(self.data.shape[1])
+        ):
+            if self.x_vars[row][col].x == 1:
+                self.solution[row][col] = 'X'
+            elif self.o_vars[row][col].x == 1:
+                self.solution[row][col] = 'O'
+            elif self.i_vars[row][col].x == 1:
+                self.solution[row][col] = 'I'
+            else:
+                raise ValueError(f'Cell ({row, col}) not contain any symbol')
+        return None
+

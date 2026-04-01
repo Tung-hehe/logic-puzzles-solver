@@ -140,4 +140,5 @@ class LineModel(BaseModel):
                 ]
                 self.add_constraint(mip.xsum(var_lines) <= len(var_lines) - 1)
             self._model.optimize()
+        self.to_solution()
         return None

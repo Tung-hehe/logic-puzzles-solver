@@ -157,12 +157,12 @@ class Binox(BaseModel):
             render_row = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
             for col in range(self.data.shape[1]):
                 if (row, col) in fixed_cells:
-                    if self.x_vars[row][col].x == 1:
+                    if self.solution[row][col] == 'X':
                         render_row += f' {Colors.BOLD}{Colors.GRAY}X{Colors.ENDC} '
                     else:
                         render_row += f' {Colors.BOLD}{Colors.GRAY}O{Colors.ENDC} '
                 else:
-                    if self.x_vars[row][col].x == 1:
+                    if self.solution[row][col] == 'X':
                         render_row += f' {Colors.BOLD}{Colors.RED}X{Colors.ENDC} '
                     else:
                         render_row += f' {Colors.BOLD}{Colors.BLUE}O{Colors.ENDC} '
@@ -179,4 +179,16 @@ class Binox(BaseModel):
             print(render_up_row)
             print(render_row)
         print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data.shape[1] + 1))}{Colors.ENDC}')
+        return None
+
+    def to_solution(self) -> None:
+        self.solution = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
+        for row, col in itertools.product(
+            range(self.data.shape[0]),
+            range(self.data.shape[1])
+        ):
+            if self.x_vars[row][col].x == 1:
+                self.solution[row][col] = 'X'
+            elif self.x_vars[row][col].x == 0:
+                self.solution[row][col] = 'O'
         return None

@@ -225,9 +225,9 @@ class Galaxies(BaseModel):
 
     def visualize(self) -> None:
         super().visualize()
-        galaxies_shapes = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
+        self.solution = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
         for row, col in itertools.product(range(self.data.shape[0]), range(self.data.shape[1])):
-            galaxies_shapes[row][col] = sum([
+            self.solution[row][col] = sum([
                 galaxy*self.x_vars[row][col][galaxy].x
                 for galaxy in range(self.galaxy_number)
             ])
@@ -259,7 +259,7 @@ class Galaxies(BaseModel):
                     render_row += f'   '
                 if (
                     col == self.data.shape[1] - 1
-                    or galaxies_shapes[row][col] != galaxies_shapes[row][col + 1]
+                    or self.solution[row][col] != self.solution[row][col + 1]
                 ):
                     render_row += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
                     cross_node = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
@@ -272,7 +272,7 @@ class Galaxies(BaseModel):
                         cross_node = f'{Colors.GREEN}𖤓{Colors.ENDC}'
                     else:
                         cross_node = f'{Colors.GRAY}+{Colors.ENDC}'
-                if row == 0 or galaxies_shapes[row][col] != galaxies_shapes[row - 1][col]:
+                if row == 0 or self.solution[row][col] != self.solution[row - 1][col]:
                     normal_cross_node = f'{Colors.GRAY}+{Colors.ENDC}'
                     if render_up_row.endswith(normal_cross_node):
                         render_up_row = render_up_row[:len(render_up_row) - len(normal_cross_node)]
@@ -287,4 +287,13 @@ class Galaxies(BaseModel):
             print(render_up_row)
             print(render_row)
         print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data.shape[1] + 1))}{Colors.ENDC}')
+        return None
+
+    def to_solution(self) -> None:
+        self.solution = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
+        for row, col in itertools.product(range(self.data.shape[0]), range(self.data.shape[1])):
+            self.solution[row][col] = sum([
+                galaxy*self.x_vars[row][col][galaxy].x
+                for galaxy in range(self.galaxy_number)
+            ])
         return None

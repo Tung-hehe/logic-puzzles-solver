@@ -13,6 +13,12 @@ from src.utils import (
     Monster,
 )
 
+MONSTER_COLOR = {
+    'V': Colors.RED,
+    'G': Colors.YELLOW,
+    'Z': Colors.GREEN
+}
+
 
 class HauntedMirrorMaze(BaseModel):
 
@@ -262,12 +268,8 @@ class HauntedMirrorMaze(BaseModel):
                     else:
                         raise ValueError(f'Invalid mirror {self.data.mirrors[(row, col)]}')
                 else:
-                    if self.v_vars[row][col].x == 1:
-                        render_row += f' {Colors.BOLD}{Colors.RED}V{Colors.ENDC} '
-                    elif self.g_vars[row][col].x == 1:
-                        render_row += f' {Colors.BOLD}{Colors.YELLOW}G{Colors.ENDC} '
-                    elif self.z_vars[row][col].x == 1:
-                        render_row += f' {Colors.BOLD}{Colors.GREEN}Z{Colors.ENDC} '
+                    if self.solution[row][col] is not None:
+                        render_row += f' {Colors.BOLD}{MONSTER_COLOR[self.solution[row][col]]}{self.solution[row][col]}{Colors.ENDC} '
                 if col == self.data.shape[1] - 1:
                     render_row += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
                     node = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
@@ -318,3 +320,15 @@ class HauntedMirrorMaze(BaseModel):
         bottom_line += f'{Colors.ENDC}'
         print(bottom_line)
         return None
+
+    def to_solution(self) -> None:
+        self.solution = [[None] * self.data.shape[1] for _ in range(self.data.shape[0])]
+        for row, col in itertools.product(range(self.data.shape[0]), range(self.data.shape[1])):
+            if self.v_vars[row][col].x == 1:
+                self.solution[row][col] = 'V'
+            elif self.g_vars[row][col].x == 1:
+                self.solution[row][col] = 'G'
+            elif self.z_vars[row][col].x == 1:
+                self.solution[row][col] = 'Z'
+        return None
+

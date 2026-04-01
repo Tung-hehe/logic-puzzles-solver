@@ -30,12 +30,15 @@ class PythonPath():
 def main():
     parser = argparse.ArgumentParser(
         description="Solve a puzzle",
-        epilog='example: python main.py -p StarBattle -d ./data/star_battle/puzzle_1.json',
-        usage='python main.py -p [P] -d [D]'
+        epilog='example: python main.py -p StarBattle -d ./data/star_battle/puzzle_1.json'
+            '\n         python main.py -p StarBattle -d ./data/star_battle/puzzle_1.json -s test.py'
+            '\n         python main.py -p APAD -d 10-05',
+        usage='python main.py -p [P] -d [D] -s[S]',
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument('-p', type=str, nargs='?', help='puzzle name')
     parser.add_argument('-d', type=str, nargs='?', help='path to data of problem, or day for puzzle "A puzzle a day" (example: "10-05")')
-    parser.add_argument('-s', type=str, nargs='?', help='save solution path')
+    parser.add_argument('-s', type=str, nargs='?', help='save solution path (optional)')
     opt = parser.parse_args()
     with PythonPath(Path(__file__).absolute().parents[2]):
         puzzle = importlib.import_module(f'src.puzzles')

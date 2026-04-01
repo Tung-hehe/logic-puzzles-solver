@@ -107,3 +107,17 @@ class Slitherlink(LineModel):
         print(temp_row)
         print(temp_line)
         return None
+
+    def to_solution(self) -> None:
+        self.solution = {'horizontal_line': [], 'vertical_line': []}
+        for row in range(self.data.shape[0] + 1):
+            for col in range(self.data.shape[1]):
+                if self.h_vars[row][col].x == 0:
+                    continue
+                self.solution['horizontal_line'].append((row, col))
+        for row in range(self.data.shape[0]):
+            for col in range(1, self.data.shape[1] + 1):
+                if self.v_vars[row][col].x == 0:
+                    continue
+                self.solution['vertical_line'].append((row, col))
+        return None

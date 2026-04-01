@@ -109,8 +109,7 @@ class Sudoku(BaseModel):
                 if (row, col) in fixed_cells.keys():
                     render_row += f' {Colors.BOLD}{Colors.GRAY}{fixed_cells[(row, col)]}{Colors.ENDC} '
                 else:
-                    value = int(sum(val * self.x_vars[row][col][val].x for val in range(self.data.shape)))
-                    render_row += f' {Colors.BOLD}{Colors.BLUE}{value + 1}{Colors.ENDC} '
+                    render_row += f' {Colors.BOLD}{Colors.BLUE}{self.solution[row][col]}{Colors.ENDC} '
                 if (col + 1) % self.block_shape == 0:
                     render_row += f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
                     node = f'{Colors.BOLD}{Colors.PURPLE}+{Colors.ENDC}'
@@ -124,4 +123,14 @@ class Sudoku(BaseModel):
             print(render_up_row)
             print(render_row)
         print(f'{Colors.BOLD}{Colors.PURPLE}{"---".join(["+"] * (self.data.shape + 1))}{Colors.ENDC}')
+        return None
+
+    def to_solution(self):
+        self.solution = [[None] * self.data.shape for _ in range(self.data.shape)]
+        for row, col in itertools.product(
+            range(self.data.shape),
+            range(self.data.shape)
+        ):
+            value = int(sum(val * self.x_vars[row][col][val].x for val in range(self.data.shape))) + 1
+            self.solution[row][col] = value
         return None

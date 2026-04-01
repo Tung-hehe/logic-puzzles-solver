@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ## Run
 - Change directory to this folder and run
     ```
-    python main.py -p [P] -d [D]
+    python main.py -p [P] -d [D] -s [S]
     ```
 - `[P]` is a puzzle sorted name
 
@@ -24,6 +24,7 @@ pip install -r requirements.txt
     |     `HMM`   | Haunted Mirror Maze |
 
 - `[D]` is path to problem data
+- `[S]` is save solution path (optional)
 - Example running
     ```
     python main.py -p SB -d ./data/star_battle/puzzle_1.json

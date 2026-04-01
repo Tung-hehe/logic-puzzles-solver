@@ -63,6 +63,7 @@ class BaseModel:
         if self._model.status != mip.OptimizationStatus.OPTIMAL:
             self.raise_error_infeasible()
         self.calculate_solving_time()
+        self.to_solution()
         return None
 
     def visualize(self) -> None:

@@ -190,16 +190,6 @@ class APuzzleADay(BaseModel):
 
     def visualize(self) -> None:
         super().visualize()
-        board = [[None] * self.size for _ in range(self.size)]
-        board[self.day_cell[0]][self.day_cell[1]] = self.day
-        board[self.month_cell[0]][self.month_cell[1]] = self.month
-        for piece, configs in self.x_vars.items():
-            for config, value in configs.items():
-                if value.x == 0:
-                    continue
-                for cell in self.configs[piece][config]:
-                    board[cell[0]][cell[1]] = piece
-                break
         for row in range(self.size):
             render_up_row = f'{Colors.BOLD}{Colors.GRAY}+{Colors.ENDC}'
             render_row = f'{Colors.BOLD}{Colors.GRAY}|{Colors.ENDC}'
@@ -208,37 +198,50 @@ class APuzzleADay(BaseModel):
                     render_row += str(self.day).rjust(3)
                 elif (row, col) == self.month_cell:
                     render_row += str(self.month).rjust(3)
-                elif board[row][col] is not None:
-                    render_row += f'{PIECES_COLOR[board[row][col]]}   {Colors.ENDC}'
+                elif self.solution[row][col] is not None:
+                    render_row += f'{PIECES_COLOR[self.solution[row][col]]}   {Colors.ENDC}'
                 else:
                     render_row += f'   '
                 if (
                     col == self.size - 1
-                    or board[row][col] != board[row][col + 1]
+                    or self.solution[row][col] != self.solution[row][col + 1]
                 ):
                     render_row += f'{Colors.BOLD}{Colors.GRAY}|{Colors.ENDC}'
                     cross_node = f'{Colors.BOLD}{Colors.GRAY}+{Colors.ENDC}'
                 else:
-                    if board[row][col] is not None:
-                        render_row += f'{PIECES_COLOR[board[row][col]]} {Colors.ENDC}'
+                    if self.solution[row][col] is not None:
+                        render_row += f'{PIECES_COLOR[self.solution[row][col]]} {Colors.ENDC}'
                     else:
                         render_row += ' '
 
-                if row == 0 or board[row][col] != board[row - 1][col]:
+                if row == 0 or self.solution[row][col] != self.solution[row - 1][col]:
                     render_up_row += f'{Colors.BOLD}{Colors.GRAY}---+{Colors.ENDC}'
                 else:
-                    if board[row][col] is None:
+                    if self.solution[row][col] is None:
                         continue
                     if col < self.size - 1 and (
-                        board[row][col] == board[row][col + 1]
+                        self.solution[row][col] == self.solution[row][col + 1]
                     ) and (
-                        board[row][col] == board[row - 1][col]
+                        self.solution[row][col] == self.solution[row - 1][col]
                     ) and (
-                        board[row][col] == board[row - 1][col + 1]
+                        self.solution[row][col] == self.solution[row - 1][col + 1]
                     ):
-                        render_up_row += f'{PIECES_COLOR[board[row][col]]}    {Colors.ENDC}'
+                        render_up_row += f'{PIECES_COLOR[self.solution[row][col]]}    {Colors.ENDC}'
                     else:
-                        render_up_row += f'{PIECES_COLOR[board[row][col]]}   {Colors.ENDC}{cross_node}'
+                        render_up_row += f'{PIECES_COLOR[self.solution[row][col]]}   {Colors.ENDC}{cross_node}'
             print(render_up_row)
             print(render_row)
         print(f'{Colors.BOLD}{Colors.GRAY}{"---".join(["+"] * (self.size + 1))}{Colors.ENDC}')
+
+    def to_solution(self) -> None:
+        self.solution = [[None] * self.size for _ in range(self.size)]
+        self.solution[self.day_cell[0]][self.day_cell[1]] = self.day
+        self.solution[self.month_cell[0]][self.month_cell[1]] = self.month
+        for piece, configs in self.x_vars.items():
+            for config, value in configs.items():
+                if value.x == 0:
+                    continue
+                for cell in self.configs[piece][config]:
+                    self.solution[cell[0]][cell[1]] = piece
+                break
+        return None
