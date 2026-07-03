@@ -30,8 +30,8 @@ class PythonPath():
 def main():
     parser = argparse.ArgumentParser(
         description="Solve a puzzle",
-        epilog='example: python main.py -p StarBattle -d ./data/star_battle/puzzle_1.json'
-            '\n         python main.py -p StarBattle -d ./data/star_battle/puzzle_1.json -s test.py'
+        epilog='example: python main.py -p SB -d ./data/star_battle/puzzle_1.json'
+            '\n         python main.py -p SB -d ./data/star_battle/puzzle_1.json -s solution.json'
             '\n         python main.py -p APAD -d 10-05',
         usage='python main.py -p [P] -d [D] -s[S]',
         formatter_class=argparse.RawDescriptionHelpFormatter
