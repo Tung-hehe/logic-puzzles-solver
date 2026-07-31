@@ -107,7 +107,7 @@ class Sudoku(BaseModel):
             render_row = f'{Colors.BOLD}{Colors.PURPLE}|{Colors.ENDC}'
             for col in range(self.data.shape):
                 if (row, col) in fixed_cells.keys():
-                    render_row += f' {Colors.BOLD}{Colors.GRAY}{fixed_cells[(row, col)]}{Colors.ENDC} '
+                    render_row += f' {Colors.BOLD}{Colors.GRAY}{fixed_cells[(row, col)] + 1}{Colors.ENDC} '
                 else:
                     render_row += f' {Colors.BOLD}{Colors.BLUE}{self.solution[row][col]}{Colors.ENDC} '
                 if (col + 1) % self.block_shape == 0:

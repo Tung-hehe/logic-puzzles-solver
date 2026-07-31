@@ -22,6 +22,8 @@ pip install -r requirements.txt
     |     `T`     | Troix               |
     |     `SL`    | Slitherlink         |
     |     `HMM`   | Haunted Mirror Maze |
+    |     `APAD`  | A Puzzle A Day      |
+    |     `SC`    | Skyscraper          |
 
 - `[D]` is path to problem data
 - `[S]` is save solution path (optional)
@@ -287,5 +289,45 @@ Modeling: [./docs/slitherlink.md](https://github.com/Tung-hehe/LogicPuzzlesSolve
 
 Detail and puzzles: [Krazydad](https://krazydad.com/haunted/)
 
+## A Puzzle A Day
+Rules:
+1. This is a solver for the "A Puzzle A Day" calendar puzzle: an irregular $7 \times 7$ board with 6 cells permanently blocked off (top-right and bottom-right corners), leaving one area of month cells (Jan-Dec) and one area of day cells (1-31).
+2. Cover every cell on the board except the one matching the given month and the one matching the given day, using each of the 8 pieces exactly once.
+3. Pieces may be freely rotated and flipped.
+
+Unlike the other puzzles, this one takes no JSON data file. Instead, pass the puzzle date as `-d [DD]-[MM]` (day first, then month):
+```
+python main.py -p APAD -d 10-05
+```
+This leaves the day cell `10` and the month cell `May` uncovered.
+
+Modeling: [./docs/a_puzzle_a_day.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/a_puzzle_a_day.md)
+
 ## Skyscraper
-- Đang phát triển
+Rules:
+1. Fill the grid with buildings of height $1$ to $n$, once each per row and per column.
+2. Each clue outside the grid tells how many buildings are visible looking into that row/column from that side (a building is visible if it is taller than every building before it).
+
+Data structure:
+```json
+{
+    "shape": 5, // size of puzzle (n x n)
+    "fixed_cells": [ // fixed cells
+        {"row": 0, "col": 0, "val": 3}
+    ],
+    "visible": { // number of visible buildings from each side, indexed by row (left/right) or column (top/bottom)
+        "left": [2, 2, 3, 4, 1],
+        "right": [2, 3, 1, 2, 3],
+        "top": [3, 2, 1, 3, 2],
+        "bottom": [1, 4, 3, 2, 2]
+    }
+}
+```
+
+Example data:
+1. [./data/skyscraper/puzzle_1.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/skyscraper/puzzle_1.json)
+2. [./data/skyscraper/puzzle_2.json](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/data/skyscraper/puzzle_2.json)
+
+Modeling: [./docs/skyscraper.md](https://github.com/Tung-hehe/LogicPuzzlesSolver/blob/main/docs/skyscraper.md)
+
+Detail and puzzles: [Krazydad](https://krazydad.com/skyscraper/)

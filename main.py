@@ -14,7 +14,8 @@ PUZZLE_NAME = {
     'T': 'Troix',
     'SL': 'Slitherlink',
     'HMM': 'HauntedMirrorMaze',
-    'APAD': 'APuzzleADay'
+    'APAD': 'APuzzleADay',
+    'SC': 'Skyscraper'
 }
 
 class PythonPath():

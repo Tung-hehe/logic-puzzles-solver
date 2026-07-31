@@ -6,3 +6,4 @@ from .star_battle import StarBattle
 from .troix import Troix
 from .haunted_mirror_maze import HauntedMirrorMaze
 from .a_puzzle_a_day import APuzzleADay
+from .skyscraper import Skyscraper
