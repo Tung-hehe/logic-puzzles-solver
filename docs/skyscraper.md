@@ -17,13 +17,13 @@ $$x(i, j, k) = \begin{cases}
     0 & \text{otherwise}
 \end{cases}, \forall 0 \leq i, j < n, 0 \leq k < n$$
 
-For every sight line $L$, interior position $1 \leq p \leq n - 2$ and height $p \leq k \leq n - 2$:
+For every sight line $L$, position $0 \leq p \leq n - 1$ and height $0 \leq k \leq n - 1$:
 $$z_L(p, k) = \begin{cases}
     1 & \text{if the building at } L_p \text{ has height } k + 1 \text{ and is strictly taller than every building at } L_0, \ldots, L_{p-1} \\
     0 & \text{otherwise}
 \end{cases}$$
 
-($p \leq k$ because a building visible from behind $p$ closer buildings needs at least $p$ smaller heights before it; $k \leq n - 2$ because the tallest building, height $n$, is handled separately below since it is always visible.)
+(For $p = 0$ there is nothing standing before it, so $z_L(0, k)$ always equals $x(r_0, c_0, k)$: the first building is always visible, whatever its height.)
 
 ## 4. Constraints
 
@@ -48,13 +48,13 @@ $$
 $$
 
 ### 4.5. Visible buildings per sight line
-For every sight line $L \in \mathcal{L}$, $1 \leq p \leq n - 2$, $p \leq k \leq n - 2$, let
+For every sight line $L \in \mathcal{L}$, $0 \leq p \leq n - 1$, $0 \leq k \leq n - 1$, let
 
 $$
     taller\_before(L, p, k) = \sum\limits_{q = 0}^{p - 1}{\sum\limits_{k' = k + 1}^{n - 1}{x(r_q, c_q, k')}}
 $$
 
-be the number of buildings standing between the viewer and position $p$ that are taller than $k + 1$. Then $z_L(p, k)$ is pinned to "cell $L_p$ has height $k + 1$ and nothing taller stands in front of it" by:
+be the number of buildings standing between the viewer and position $p$ that are taller than $k + 1$ (an empty sum, hence $0$, when $p = 0$). Then $z_L(p, k)$ is pinned to "cell $L_p$ has height $k + 1$ and nothing taller stands in front of it" by:
 $$
     taller\_before(L, p, k) + p \cdot z_L(p, k) - p \leq 0
 $$
@@ -67,7 +67,9 @@ $$
 
 and the clue is enforced by
 $$
-    \sum\limits_{p = 1}^{n - 2}{\sum\limits_{k = p}^{n - 2}{z_L(p, k)}} + \sum\limits_{p = 0}^{n - 1}{x(r_p, c_p, n - 1)} \geq v(L) - 1, \forall L \in \mathcal{L}
+    \sum\limits_{p = 0}^{n - 1}{\sum\limits_{k = 0}^{n - 1}{z_L(p, k)}} = v(L), \forall L \in \mathcal{L}
 $$
 
-The second sum is exactly $1$ (the tallest building, height $n$, occurs once on $L$ and is always visible from both ends). The first cell $L_0$ is likewise always visible but is only picked up explicitly by that same term when it happens to hold height $n$; otherwise its guaranteed visibility is absorbed by the $-1$ slack on the right-hand side, which is why the constraint is an inequality rather than an equality.
+Since every $(p, k)$ pair is covered, $z_L(p, k)$ exactly indicates whether the building at position $p$ is visible, so the sum above is exactly the true number of visible buildings on $L$ and the clue can be enforced with equality.
+
+**A note on an earlier, buggy version of this constraint:** an earlier version of this model only defined $z_L$ for interior positions $1 \leq p \leq n - 2$ and heights $p \leq k \leq n - 2$, handled the tallest building (height $n$, always visible wherever it stands) through a separate term $\sum_{p} x(r_p, c_p, n - 1)$, and handled the always-visible first cell $L_0$ by relaxing the right-hand side to $v(L) - 1$ instead of $v(L)$. That inequality is unsound whenever the tallest building happens to stand at $L_0$: no other building on the line can then be a record (nothing can be taller than the tallest), so the left-hand side is always exactly $1$ regardless of the rest of the line, which lets the inequality hold for any clue $v(L) \leq 2$ even when the true visible count is $1$. Concretely, the puzzle in `data/skyscraper/puzzle_1.json` solves to a grid whose last row, read from the left, is `5 2 1 4 3` (only $1$ building visible); with the old formula, changing that row's `left` clue from `1` to `2` still solved to the exact same grid, silently accepting a clue the solution does not actually satisfy. The uniform formulation above (every position paired with every height, enforced with equality) has no such gap.

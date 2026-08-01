@@ -107,9 +107,9 @@ class Skyscraper(BaseModel):
         # See ./docs/skyscraper.md for the derivation of this "record-from-the-front" encoding.
         shape = self.data.shape
         visible_vars = []
-        for position in range(1, shape - 1):
+        for position in range(shape):
             row, col = line[position]
-            for val in range(position, shape - 1):
+            for val in range(shape):
                 z = self.add_variable(vtype=mip.BINARY, name=f'visible_{tag}_{position}_{val}')
                 visible_vars.append(z)
                 taller_before = mip.xsum(
@@ -120,11 +120,7 @@ class Skyscraper(BaseModel):
                 self.add_constraint(taller_before + position * z - position <= 0)
                 self.add_constraint(self.x_vars[row][col][val] - z >= 0)
                 self.add_constraint(self.x_vars[row][col][val] - taller_before - z <= 0)
-        self.add_constraint(
-            mip.xsum(visible_vars)
-            + mip.xsum(self.x_vars[row][col][shape - 1] for row, col in line)
-            >= visible_number - 1
-        )
+        self.add_constraint(mip.xsum(visible_vars) == visible_number)
         return None
 
     def visualize(self) -> None:
